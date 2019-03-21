@@ -1,0 +1,9 @@
+0.6
+2018.2
+Jun 14 2018
+20:41:02
+D:/code/Xilinx/cod-labs/lab1/lab1_alu/lab1_alu.srcs/sources_1/new/Define.vh,1553098232,verilog,,,,,,,,,,,,
+D:/code/Xilinx/cod-labs/lab1/lab1_alu/lab1_alu.srcs/sources_1/new/alu.v,1553152776,verilog,,D:/code/Xilinx/cod-labs/lab1/lab1_alu/lab1_alu.srcs/sources_1/new/fib.v,D:/code/Xilinx/cod-labs/lab1/lab1_alu/lab1_alu.srcs/sources_1/new/Define.vh,alu,,,../../../../../lab1_alu/lab1_alu.srcs/sources_1/new,,,,,
+D:/code/Xilinx/cod-labs/lab1/lab1_alu/lab1_alu.srcs/sources_1/new/fib.v,1553183549,verilog,,D:/code/Xilinx/cod-labs/lab1/lab1_fib/lab1_fib.srcs/sim_1/new/fib_tb.v,D:/code/Xilinx/cod-labs/lab1/lab1_alu/lab1_alu.srcs/sources_1/new/Define.vh,fib,,,../../../../../lab1_alu/lab1_alu.srcs/sources_1/new,,,,,
+D:/code/Xilinx/cod-labs/lab1/lab1_fib/lab1_fib.sim/sim_1/behav/xsim/glbl.v,1529022455,verilog,,,,glbl,,,,,,,,
+D:/code/Xilinx/cod-labs/lab1/lab1_fib/lab1_fib.srcs/sim_1/new/fib_tb.v,1553230883,verilog,,,,fib_tb,,,../../../../../lab1_alu/lab1_alu.srcs/sources_1/new,,,,,
