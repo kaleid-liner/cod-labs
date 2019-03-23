@@ -33,8 +33,8 @@ module fib_tb(
     initial begin
         clk = 0;
         rst = 1;
-        f0 = 1;
-        f1 = 1;
+        f0 = 2;
+        f1 = 2;
         #7 rst = 0;
     end
     

@@ -39,6 +39,7 @@
   <File Type="ROUTE-TIMING-PB" Name="fib_timing_summary_routed.pb"/>
   <File Type="ROUTE-TIMING-RPX" Name="fib_timing_summary_routed.rpx"/>
   <File Type="ROUTE-CLK" Name="fib_clock_utilization_routed.rpt"/>
+  <File Type="RDI-RDI" Name="fib.vdi"/>
   <File Type="ROUTE-BUS-SKEW" Name="fib_bus_skew_routed.rpt"/>
   <File Type="ROUTE-BUS-SKEW-PB" Name="fib_bus_skew_routed.pb"/>
   <File Type="ROUTE-BUS-SKEW-RPX" Name="fib_bus_skew_routed.rpx"/>
@@ -48,7 +49,6 @@
   <File Type="BITSTR-RBT" Name="fib.rbt"/>
   <File Type="BITSTR-NKY" Name="fib.nky"/>
   <File Type="BG-DRC" Name="fib.drc"/>
-  <File Type="RDI-RDI" Name="fib.vdi"/>
   <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
