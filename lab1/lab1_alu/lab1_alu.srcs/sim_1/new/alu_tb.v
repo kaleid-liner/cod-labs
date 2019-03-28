@@ -50,6 +50,12 @@ module alu_tb(
         #5
         op = `NOT;
         a = 4'b1111;
+        #5
+        op = `SAR;
+        a = 4'b1010;
+        b = 2;
+        #5
+        op = `SHR;
     end
     
     alu #(4) tu (a, b, op, y, flag);

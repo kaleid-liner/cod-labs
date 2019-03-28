@@ -1,15 +1,18 @@
-`define ALU_OP_BITS 3
+`define ALU_OP_BITS 4
 `define FLAG_BITS 4
 
 /*
     op codes
 */
-`define ADD 3'd0
-`define SUB 3'd2
-`define OR 3'd4
-`define AND 3'd5
-`define NOT 3'd6
-`define XOR 3'd7
+`define ADD 0
+`define SUB 2
+`define OR 4
+`define AND 5
+`define NOT 6
+`define XOR 7
+`define SAR 1
+`define SHR 3
+`define SL  8
 
 /*
     flags

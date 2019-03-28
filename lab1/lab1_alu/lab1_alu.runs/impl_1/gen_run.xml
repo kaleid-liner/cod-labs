@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="impl_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1553152791">
+  <File Type="BITSTR-BMM" Name="alu_bd.bmm"/>
   <File Type="ROUTE-PWR" Name="alu_power_routed.rpt"/>
   <File Type="PA-TCL" Name="alu.tcl"/>
-  <File Type="BITSTR-BMM" Name="alu_bd.bmm"/>
+  <File Type="OPT-DCP" Name="alu_opt.dcp"/>
   <File Type="ROUTE-PWR-SUM" Name="alu_power_summary_routed.pb"/>
   <File Type="REPORTS-TCL" Name="alu_reports.tcl"/>
-  <File Type="OPT-DCP" Name="alu_opt.dcp"/>
   <File Type="OPT-DRC" Name="alu_drc_opted.rpt"/>
   <File Type="OPT-HWDEF" Name="alu.hwdef"/>
   <File Type="PWROPT-DCP" Name="alu_pwropt.dcp"/>
@@ -25,21 +25,21 @@
   <File Type="ROUTE-BLACKBOX-DCP" Name="alu_routed_bb.dcp"/>
   <File Type="ROUTE-DRC" Name="alu_drc_routed.rpt"/>
   <File Type="ROUTE-DRC-PB" Name="alu_drc_routed.pb"/>
-  <File Type="ROUTE-DRC-RPX" Name="alu_drc_routed.rpx"/>
   <File Type="BITSTR-LTX" Name="alu.ltx"/>
-  <File Type="ROUTE-METHODOLOGY-DRC" Name="alu_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-RPX" Name="alu_drc_routed.rpx"/>
   <File Type="BITSTR-MMI" Name="alu.mmi"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="alu_methodology_drc_routed.rpt"/>
   <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="alu_methodology_drc_routed.rpx"/>
-  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="alu_methodology_drc_routed.pb"/>
   <File Type="BITSTR-SYSDEF" Name="alu.sysdef"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="alu_methodology_drc_routed.pb"/>
   <File Type="ROUTE-PWR-RPX" Name="alu_power_routed.rpx"/>
   <File Type="ROUTE-STATUS" Name="alu_route_status.rpt"/>
   <File Type="ROUTE-STATUS-PB" Name="alu_route_status.pb"/>
   <File Type="ROUTE-TIMINGSUMMARY" Name="alu_timing_summary_routed.rpt"/>
   <File Type="ROUTE-TIMING-PB" Name="alu_timing_summary_routed.pb"/>
   <File Type="ROUTE-TIMING-RPX" Name="alu_timing_summary_routed.rpx"/>
-  <File Type="ROUTE-CLK" Name="alu_clock_utilization_routed.rpt"/>
   <File Type="RDI-RDI" Name="alu.vdi"/>
+  <File Type="ROUTE-CLK" Name="alu_clock_utilization_routed.rpt"/>
   <File Type="ROUTE-BUS-SKEW" Name="alu_bus_skew_routed.rpt"/>
   <File Type="ROUTE-BUS-SKEW-PB" Name="alu_bus_skew_routed.pb"/>
   <File Type="ROUTE-BUS-SKEW-RPX" Name="alu_bus_skew_routed.rpx"/>

@@ -21,10 +21,10 @@
 `include "Define.vh"
 
 module alu(
-    input [BITS-1:0] a,
-    input [BITS-1:0] b,
+    input signed [BITS-1:0] a,
+    input signed [BITS-1:0] b,
     input [`ALU_OP_BITS-1:0] op,
-    output reg [BITS-1:0] y,
+    output reg signed [BITS-1:0] y,
     output [`FLAG_BITS-1:0] flag
     );
 
@@ -43,13 +43,13 @@ module alu(
     always @(*) begin 
         case (op) 
             `ADD: begin
-                {carry, y} = a + b;
+                {carry, y} = {1'b0, a} + {1'b0, b};
                 of = (a[BITS-1] & b[BITS-1] & ~y[BITS-1])
                    | (~a[BITS-1] & ~b[BITS-1] & y[BITS-1]);
                 cf = carry;
             end
             `SUB: begin
-                {carry, y} = a - b;
+                {carry, y} = {1'b0, a} - {1'b0, b};
                 of = (a[BITS-1] & ~b[BITS-1] & ~y[BITS-1])
                    | (~a[BITS-1] & b[BITS-1] | y[BITS-1]);
                 cf = carry;
@@ -73,6 +73,24 @@ module alu(
                 {carry, y} = ~a;
                 of = 0;
                 cf = 0;
+            end
+            `SHR: begin
+                {y, carry} = {1'b0, a} >> (b - 1);
+                if (b == 1)
+                    of = a[BITS-1];
+                cf = carry;
+            end
+            `SAR: begin
+                {y, carry} = {a[BITS-1], a >>> (b - 1)};
+                if (b == 1)
+                    of = 0;
+                cf = carry;
+            end
+            `SL: begin
+                {carry, y} = a << b;
+                if (b == 1)
+                    of = y[BITS-1] ^ carry;
+                cf = carry;
             end
             default: begin
                 {carry, y} = 0;
