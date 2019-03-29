@@ -35,7 +35,9 @@ of = (a[BITS-1] & ~b[BITS-1] & ~y[BITS-1])
 
 ZF比较简单，`assign ZF = !y`即可。`assign SF = y[BITS-1]`，`assign CF = carry`。只不过在与、或、非时要注意OF和CF的值。
 
-ALU另外需要考虑的就是位数。这里我将位数设成参数`parameter BITS = 4`。可以根据实例的需要进行更改。
+ALU另外需要考虑的就是位数。这里我将位数设成参数`parameter BITS = 4`。可以根据实例的需要进行更改。如下是ALU的原理图。
+
+![lab1_alu_sch](assets/lab1_alu_sch.png)
 
 ### 2. Register
 
@@ -96,6 +98,10 @@ always @(posedge clk) begin
     end
 end
 ```
+
+如下是Fibonacci的原理图
+
+![lab1_fib_sch](assets/lab1_fib_sch.png)
 
 ## 完整代码
 
@@ -362,10 +368,24 @@ endmodule
 
 从`rst`置1，clk上升沿完成初始化。这里f0 = f1 = 2，发现2 + 2 = 4， 2 + 4 = 6， 4 + 6 = 10 ... 与预期相符。
 
+## 下载结果
+
+### 1. ALU
+
+如图模拟的是1 - 2 = -1
+
+![IMG_20190329_193625](assets/IMG_20190329_193625.jpg)
+
+### 2. FIB
+
+如图是初始项为1和1的Fibonacci数列的一个结果，为13.
+
+![1553859700873](assets/1553859700873.jpg)
+
 ## 实验总结
 
 在这次实验中，我学到了
 
 - 实现ALU，了解了ALU的一般实现方法，进位溢出等符号的处理
 - 实现了时序逻辑结构的Register
-- 使用ALU和寄存器完成了一些相对的高级功能，如比较、输出fibonacci数列等。
+- 使用A!LU和寄存器完成了一些相对的高级功能，如比较、输出fibonacci数列等。
