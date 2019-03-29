@@ -1,42 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="impl_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1553758568">
   <File Type="BITSTR-BMM" Name="sort_bd.bmm"/>
-  <File Type="OPT-METHODOLOGY-DRC" Name="sort_methodology_drc_opted.rpt"/>
-  <File Type="INIT-TIMING" Name="sort_timing_summary_init.rpt"/>
   <File Type="ROUTE-PWR" Name="sort_power_routed.rpt"/>
   <File Type="PA-TCL" Name="sort.tcl"/>
-  <File Type="OPT-TIMING" Name="sort_timing_summary_opted.rpt"/>
   <File Type="OPT-DCP" Name="sort_opt.dcp"/>
   <File Type="ROUTE-PWR-SUM" Name="sort_power_summary_routed.pb"/>
   <File Type="REPORTS-TCL" Name="sort_reports.tcl"/>
   <File Type="OPT-DRC" Name="sort_drc_opted.rpt"/>
   <File Type="OPT-HWDEF" Name="sort.hwdef"/>
   <File Type="PWROPT-DCP" Name="sort_pwropt.dcp"/>
-  <File Type="PWROPT-DRC" Name="sort_drc_pwropted.rpt"/>
-  <File Type="PWROPT-TIMING" Name="sort_timing_summary_pwropted.rpt"/>
   <File Type="PLACE-DCP" Name="sort_placed.dcp"/>
   <File Type="PLACE-IO" Name="sort_io_placed.rpt"/>
-  <File Type="PLACE-CLK" Name="sort_clock_utilization_placed.rpt"/>
   <File Type="PLACE-UTIL" Name="sort_utilization_placed.rpt"/>
   <File Type="PLACE-UTIL-PB" Name="sort_utilization_placed.pb"/>
   <File Type="PLACE-CTRL" Name="sort_control_sets_placed.rpt"/>
-  <File Type="PLACE-SIMILARITY" Name="sort_incremental_reuse_placed.rpt"/>
   <File Type="PLACE-PRE-SIMILARITY" Name="sort_incremental_reuse_pre_placed.rpt"/>
   <File Type="BG-BGN" Name="sort.bgn"/>
-  <File Type="PLACE-TIMING" Name="sort_timing_summary_placed.rpt"/>
   <File Type="POSTPLACE-PWROPT-DCP" Name="sort_postplace_pwropt.dcp"/>
   <File Type="BG-BIN" Name="sort.bin"/>
-  <File Type="POSTPLACE-PWROPT-TIMING" Name="sort_timing_summary_postplace_pwropted.rpt"/>
   <File Type="PHYSOPT-DCP" Name="sort_physopt.dcp"/>
-  <File Type="PHYSOPT-DRC" Name="sort_drc_physopted.rpt"/>
   <File Type="BITSTR-MSK" Name="sort.msk"/>
-  <File Type="PHYSOPT-TIMING" Name="sort_timing_summary_physopted.rpt"/>
   <File Type="ROUTE-ERROR-DCP" Name="sort_routed_error.dcp"/>
   <File Type="ROUTE-DCP" Name="sort_routed.dcp"/>
   <File Type="ROUTE-BLACKBOX-DCP" Name="sort_routed_bb.dcp"/>
   <File Type="ROUTE-DRC" Name="sort_drc_routed.rpt"/>
   <File Type="ROUTE-DRC-PB" Name="sort_drc_routed.pb"/>
-  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
   <File Type="BITSTR-LTX" Name="sort.ltx"/>
   <File Type="ROUTE-DRC-RPX" Name="sort_drc_routed.rpx"/>
   <File Type="BITSTR-MMI" Name="sort.mmi"/>
@@ -50,24 +38,17 @@
   <File Type="ROUTE-TIMINGSUMMARY" Name="sort_timing_summary_routed.rpt"/>
   <File Type="ROUTE-TIMING-PB" Name="sort_timing_summary_routed.pb"/>
   <File Type="ROUTE-TIMING-RPX" Name="sort_timing_summary_routed.rpx"/>
-  <File Type="ROUTE-SIMILARITY" Name="sort_incremental_reuse_routed.rpt"/>
+  <File Type="RDI-RDI" Name="sort.vdi"/>
   <File Type="ROUTE-CLK" Name="sort_clock_utilization_routed.rpt"/>
   <File Type="ROUTE-BUS-SKEW" Name="sort_bus_skew_routed.rpt"/>
   <File Type="ROUTE-BUS-SKEW-PB" Name="sort_bus_skew_routed.pb"/>
   <File Type="ROUTE-BUS-SKEW-RPX" Name="sort_bus_skew_routed.rpx"/>
   <File Type="POSTROUTE-PHYSOPT-DCP" Name="sort_postroute_physopt.dcp"/>
   <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="sort_postroute_physopt_bb.dcp"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="sort_timing_summary_postroute_physopted.rpt"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="sort_timing_summary_postroute_physopted.pb"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="sort_timing_summary_postroute_physopted.rpx"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="sort_bus_skew_postroute_physopted.rpt"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="sort_bus_skew_postroute_physopted.pb"/>
   <File Type="BG-BIT" Name="sort.bit"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="sort_bus_skew_postroute_physopted.rpx"/>
   <File Type="BITSTR-RBT" Name="sort.rbt"/>
   <File Type="BITSTR-NKY" Name="sort.nky"/>
   <File Type="BG-DRC" Name="sort.drc"/>
-  <File Type="RDI-RDI" Name="sort.vdi"/>
   <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
