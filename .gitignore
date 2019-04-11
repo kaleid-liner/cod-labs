@@ -105,4 +105,8 @@ hw_handoff
 ipshared
 
 # report
+
 *.pdf
+*/*/*.srcs/constrs*/
+*/*/*.sim
+*/*/*.runs
