@@ -42,6 +42,8 @@ module fifo(
     wire seg_clk;
     wire will_full;
     wire [2:0] rear_next;
+    wire [2:0] rear_last;
+    wire can_in, can_out;
     
     clk_wiz_0 main_clock (
         .clk_out1(clk_5mhz), 
@@ -54,7 +56,7 @@ module fifo(
     );
     
     always @(posedge seg_clk) begin
-        if ((scan == (rear - 1)) || (scan == rear))
+        if (scan == rear_last)
             scan <= head;
         else scan <= scan + 1;
     end
@@ -94,23 +96,26 @@ module fifo(
             head <= 0;
             rear <= 0;
         end else begin
-            if (en_in && !full) begin
+            if (can_in) begin
                 rear <= rear + 1;
             end
-            if (en_out && !empty) begin
+            if (can_out) begin
                 head <= head + 1;
             end
-            if (en_in && !en_out) begin
+            if (can_in && !can_out) begin
                 full <= will_full;
-            end else if (!en_in && en_out) begin
+            end else if (!can_in && can_out) begin
                 full <= 0;
             end 
         end
     end
     
-    assign empty = (rear == head) & !full;
+    assign empty = (rear == head) & ~full;
     assign rear_next = rear + 1;
-    assign will_full = rear_next == full;
+    assign rear_last = rear - 1;
+    assign will_full = (rear_next == head) | full;
+    assign can_in = (en_in & ~full) | (en_in & en_out);
+    assign can_out = (en_out & ~empty) | (en_in & en_out);
     
     
 endmodule
