@@ -74,7 +74,7 @@ module fifo(
     regfile #(4, 8, 3) rf (
         .rst(rst),
         .clk(clk),
-        .wEn(en_in),
+        .wEn(can_in),
         .rAddr0(head),
         .rDout0(out),
         .rAddr1(scan),
