@@ -2,11 +2,13 @@
 
 [TOC]
 
+本次冒泡排序的代码、报告和工具也可以在[我的Github repo](https://github.com/kaleid-liner/cod-labs/tree/master/bubble_sort)上找到。
+
 ## Design
 
 由于个人之前就比较熟悉 x86 汇编的编写，并且 gdb 等工具也使用过，x86 方面的环境也比较普遍，所以我是用 x86 完成此次实验。
 
-此次实验使用了一些 system call，参阅的文档主要是[这里](Linux Syscall Table)。
+此次实验使用了一些 system call，参阅的文档主要是[这里][Linux Syscall Table]。
 
 ### Array input
 
@@ -313,4 +315,4 @@ $ ld sort.o -o sort
 
 - [Linux Syscall Table](https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/)
 
-[Linux Syscall Table]: (https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/)	"Linux Syscall Table"
+[Linux Syscall Table]: https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/	"Linux Syscall Table"
