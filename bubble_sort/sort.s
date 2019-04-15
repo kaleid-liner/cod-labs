@@ -20,48 +20,48 @@ _start:
     syscall
 
     mov rax, rdi
-    lea rdx, [100]
+    lea edx, [100]
     
     loop:
-        test rdx, rdx
+        test edx, edx
         jz test
 
-        xor rdi, rdi
+        xor edi, edi
         bubble:
-            cmp rdi, rdx
+            cmp edi, edx
             jge continue
 
-            mov rcx, [rax+rdi*4]
-            mov rsi, [rax+rdi*4+4]
-            cmp rcx, rsi
+            mov ecx, [rax+rdi*4]
+            mov esi, [rax+rdi*4+4]
+            cmp ecx, esi
             jle noswap
 
             swap:
-            mov [rax+rdi*4+4], rcx
-            mov [rax+rdi*4], rsi
+            mov [rax+rdi*4+4], ecx
+            mov [rax+rdi*4], esi
 
             noswap:
-            inc rdi
+            inc edi
             jmp bubble
 
         continue:
-        dec rdx
+        dec edx
         jmp loop
 
     test: ; test if right
-        lea rdi, [0]
+        lea edi, [0]
 
         test_loop:
-            cmp rdi, 100
+            cmp edi, 100
             jge right
-            mov rcx, [rax+rdi*4]
-            cmp rcx, [rax+rdi*4+4]
+            mov ecx, [rax+rdi*4]
+            cmp ecx, [rax+rdi*4+4]
             jg wrong
-            inc rdi
+            inc edi
             jmp test_loop
 
     wrong:
-    mov rdx, len
+    mov edx, len
     mov rsi, wmsg
     lea rdi, [1]
     lea rax, [1]
@@ -69,7 +69,7 @@ _start:
     jmp exit
 
     right:
-    mov rdx, len
+    mov edx, len
     mov rsi, rmsg
     lea rdi, [1]
     lea rax, [1]
