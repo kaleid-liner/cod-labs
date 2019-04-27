@@ -78,6 +78,10 @@ module vga(
     assign vaddr = hcbeg + vcbeg * 256;
     
     assign vrgb = ((hcbeg == x) && (vcbeg == y))
+               || ((hcbeg == x - 1) && (vcbeg == y))
+               || ((hcbeg == x + 1) && (vcbeg == y))
+               || ((hcbeg == x) && (vcbeg == y - 1))
+               || ((hcbeg == x) && (vcbeg == y + 1))
                || (hc < BORDER_LEFT) || (hc > BORDER_RIGHT)
                || (vc < BORDER_TOP) || (vc > BORDER_BOTTOM)
                ? 0 : vdata;
