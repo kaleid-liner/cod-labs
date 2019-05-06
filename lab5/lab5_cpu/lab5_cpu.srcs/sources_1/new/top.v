@@ -22,7 +22,8 @@
 `include "define.vh"
 
 module top(
-    input clk
+    input clk,
+    input rst
     );
     
     // signal
@@ -46,10 +47,13 @@ module top(
     wire [`BITS-1:0] jmp_addr;
     reg [`BITS-1:0] ir;
     reg mdr;
+    wire [5:0] opcode;
     
     assign npc = (sig_pc_src == 0) ? alu_res :
                  (sig_pc_src == 1) ? alu_out :
                                      jmp_addr;
+                                     
+    assign opcode = ir[31:26];
                                    
     assign jmp_addr = {pc[31:28], ir[25:0] << 2};
     
@@ -65,15 +69,22 @@ module top(
             ir <= mem_dout;
     end
     
+    always @(posedge clk_50mhz) begin
+        alu_out = alu_res;
+        mdr = mem_dout;
+    end
+    
+    /*
     clk_wiz_0 main_clock (
         .clk_in1(clk),
         .clk_out1(clk_50mhz)
     );
+    */
+    assign clk_50mhz = clk;
 
     wire mem_addr;
     wire [`BITS-1:0] mem_din;
     wire [`BITS-1:0] mem_dout;
-    wire rst;
         
     dist_mem_gen_0 memory (
         .a(mem_addr),
@@ -83,7 +94,7 @@ module top(
         .we(sig_mem_w)
     );
     
-    assign mem_din = sig_IorD ? alu_out : pc;
+    assign mem_din = (sig_IorD ? alu_out : pc) >> 2;
 
     wire [`REG_ADDR-1:0] ra1;
     wire [`REG_ADDR-1:0] ra2;
@@ -130,7 +141,7 @@ module top(
     );
     
     alu_ctrl _alu_ctrl (
-        .op(ir[31:26]),
+        .op(opcode),
         .funct(ir[5:0]),
         .alu_op(alu_op)
     );
@@ -146,19 +157,233 @@ module top(
     // control
     localparam SIf  = 0,
                SId  = 1,
-               SEx  = 2,
-               SMem = 3,
-               SWb  = 4;
+               SLSEx = 2,
+               SREx  = 3,
+               SIEx = 4,
+               SJEx = 5,
+               SBEx = 6,
+               SLMem = 7,
+               SSMem = 8,
+               SRMem = 9,
+               SIMem = 10,
+               SWb  = 11,
+               SStart = 12;
+               
+    reg [3:0] state;
+    wire [3:0] next_state;
     
-    wire clk_25mhz;
-    clock_25mhz cpu_tick (
-        .clk_50mhz(clk_50mhz),
-        .clk_25mhz(clk_25mhz)
-    );
+    // just not want to use case
+    assign next_state = 
+        (state == SIf)   ? SId :
+        (state == SId)   ? (opcode == `R)   ? SREx :
+                           (opcode == `BEQ) ? SBEx :
+                           (opcode == `BNE) ? SBEx :
+                           (opcode == `LW)  ? SLSEx:
+                           (opcode == `SW)  ? SLSEx:
+                           (opcode == `J)   ? SJEx :
+                                              SIEx :
+        (state == SLSEx) ? (opcode == `LW)  ? SLMem:
+                                              SSMem:
+        (state == SREx)  ? SRMem:
+        (state == SIEx)  ? SIMem:
+        (state == SJEx)  ? SIf  :
+        (state == SBEx)  ? SIf  :
+        (state == SLMem) ? SWb  :
+                           SIf  ;
     
-    always @ (posedge clk_25mhz) begin
-        
+    always @ (posedge clk_50mhz) begin
+        state <= next_state;
+    end 
     
-    end          
+    initial begin
+        state = SStart;
+        pc = 0;
+    end
     
+    always @ (next_state) begin
+        case (next_state)
+        SIf: begin 
+            sig_reg_dst = 0;
+            sig_reg_w = 0;
+            sig_alu_srca = 0;
+            sig_alu_srcb = 1;
+            sig_pc_src = 0;
+            sig_pc_wcond = 0;
+            sig_pc_w = 1;
+            sig_IorD = 0;
+            sig_mem_r = 1;
+            sig_mem_w = 0;
+            sig_mem_reg = 0;
+            sig_ir_w = 1;
+        end
+        SId: begin
+            sig_reg_dst = 0;
+            sig_reg_w = 0; 
+            sig_alu_srca = 0;
+            sig_alu_srcb = 3;
+            sig_pc_src = 0;
+            sig_pc_wcond = 0;
+            sig_pc_w = 0;
+            sig_IorD = 0;
+            sig_mem_r = 0;
+            sig_mem_w = 0;
+            sig_mem_reg = 0;
+            sig_ir_w = 0;
+        end
+        SLSEx: begin
+            sig_reg_dst = 0;
+            sig_reg_w = 0;
+            sig_alu_srca = 1;
+            sig_alu_srcb = 2;
+            sig_pc_src = 0;
+            sig_pc_wcond = 0;
+            sig_pc_w = 0;
+            sig_IorD = 0;
+            sig_mem_r = 0;
+            sig_mem_w = 0;
+            sig_mem_reg = 0;
+            sig_ir_w = 0;
+        end
+        SREx: begin
+            sig_reg_dst = 0;
+            sig_reg_w = 0;
+            sig_alu_srca = 1;
+            sig_alu_srcb = 0;
+            sig_pc_src = 0;
+            sig_pc_wcond = 0;
+            sig_pc_w = 0;
+            sig_IorD = 0;
+            sig_mem_r = 0;
+            sig_mem_w = 0;
+            sig_mem_reg = 0;
+            sig_ir_w = 0;             
+        end
+        SBEx: begin
+            sig_reg_dst = 0;
+            sig_reg_w = 0;
+            sig_alu_srca = 1;
+            sig_alu_srcb = 0;
+            sig_pc_src = 1;
+            sig_pc_wcond = 1;
+            sig_pc_w = 0;
+            sig_IorD = 0;
+            sig_mem_r = 0;
+            sig_mem_w = 0;
+            sig_mem_reg = 0;
+            sig_ir_w = 0;            
+        end
+        SJEx: begin
+            sig_reg_dst = 0;
+            sig_reg_w = 0;
+            sig_alu_srca = 1;
+            sig_alu_srcb = 2;
+            sig_pc_src = 2;
+            sig_pc_wcond = 0;
+            sig_pc_w = 1;
+            sig_IorD = 0;
+            sig_mem_r = 0;
+            sig_mem_w = 0;
+            sig_mem_reg = 0;
+            sig_ir_w = 0;
+        end
+        SIEx: begin
+            sig_reg_dst = 0;
+            sig_reg_w = 0;
+            sig_alu_srca = 1;
+            sig_alu_srcb = 2;
+            sig_pc_src = 0;
+            sig_pc_wcond = 0;
+            sig_pc_w = 0;
+            sig_IorD = 0;
+            sig_mem_r = 0;
+            sig_mem_w = 0;
+            sig_mem_reg = 0;
+            sig_ir_w = 0;        
+        end
+        SLMem: begin
+            sig_reg_dst = 0;
+            sig_reg_w = 0;
+            sig_alu_srca = 1;
+            sig_alu_srcb = 2;
+            sig_pc_src = 0;
+            sig_pc_wcond = 0;
+            sig_pc_w = 0;
+            sig_IorD = 1;
+            sig_mem_r = 1;
+            sig_mem_w = 0;
+            sig_mem_reg = 0;
+            sig_ir_w = 0;        
+        end
+        SSMem: begin 
+            sig_reg_dst = 0;
+            sig_reg_w = 0;
+            sig_alu_srca = 1;
+            sig_alu_srcb = 2;
+            sig_pc_src = 0;
+            sig_pc_wcond = 0;
+            sig_pc_w = 0;
+            sig_IorD = 1;
+            sig_mem_r = 0;
+            sig_mem_w = 1;
+            sig_mem_reg = 0;
+            sig_ir_w = 0;   
+        end
+        SRMem: begin
+            sig_reg_dst = 1;
+            sig_reg_w = 1;
+            sig_alu_srca = 1;
+            sig_alu_srcb = 2;
+            sig_pc_src = 0;
+            sig_pc_wcond = 0;
+            sig_pc_w = 0;
+            sig_IorD = 0;
+            sig_mem_r = 0;
+            sig_mem_w = 0;
+            sig_mem_reg = 0;
+            sig_ir_w = 0;            
+        end
+        SIMem: begin
+            sig_reg_dst = 0;
+            sig_reg_w = 1;
+            sig_alu_srca = 1;
+            sig_alu_srcb = 2;
+            sig_pc_src = 0;
+            sig_pc_wcond = 0;
+            sig_pc_w = 0;
+            sig_IorD = 0;
+            sig_mem_r = 0;
+            sig_mem_w = 0;
+            sig_mem_reg = 0;
+            sig_ir_w = 0;            
+        end
+        SWb: begin
+            sig_reg_dst = 0;
+            sig_reg_w = 1;
+            sig_alu_srca = 1;
+            sig_alu_srcb = 2;
+            sig_pc_src = 0;
+            sig_pc_wcond = 0;
+            sig_pc_w = 0;
+            sig_IorD = 0;
+            sig_mem_r = 0;
+            sig_mem_w = 0;
+            sig_mem_reg = 1;
+            sig_ir_w = 0;
+        end
+        SStart: begin
+            sig_reg_dst = 0;
+            sig_reg_w = 0;
+            sig_alu_srca = 0;
+            sig_alu_srcb = 0;
+            sig_pc_src = 0;
+            sig_pc_wcond = 0;
+            sig_pc_w = 0;
+            sig_IorD = 0;
+            sig_mem_r = 0;
+            sig_mem_w = 0;
+            sig_mem_reg = 0;
+            sig_ir_w = 0;
+        end
+        endcase
+    end 
 endmodule

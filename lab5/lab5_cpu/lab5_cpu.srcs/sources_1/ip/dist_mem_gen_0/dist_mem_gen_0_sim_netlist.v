@@ -1,10 +1,10 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-// Date        : Wed May  1 23:58:36 2019
+// Date        : Sun May  5 16:19:54 2019
 // Host        : LAPTOP-VIPBS5F9 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
-//               d:/code/Xilinx/cod-labs/lab5/lab5_cpu/lab5_cpu.srcs/sources_1/ip/dist_mem_gen_0/dist_mem_gen_0_sim_netlist.v
+//               D:/code/Xilinx/cod-labs/lab5/lab5_cpu/lab5_cpu.srcs/sources_1/ip/dist_mem_gen_0/dist_mem_gen_0_sim_netlist.v
 // Design      : dist_mem_gen_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -1314,7 +1314,7 @@ module dist_mem_gen_0_dpram
         .R(1'b0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000034411C91)) 
+    .INIT(128'h00000000000000000000111515113B91)) 
     ram_reg_0_127_0_0
        (.A(a[6:0]),
         .D(d[0]),
@@ -1331,7 +1331,7 @@ module dist_mem_gen_0_dpram
         .O(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000000000000)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_10_10
        (.A(a[6:0]),
         .D(d[10]),
@@ -1342,7 +1342,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h000000000000000000000000000001A8)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_11_11
        (.A(a[6:0]),
         .D(d[11]),
@@ -1353,7 +1353,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h000000000000000000000000000000CC)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_12_12
        (.A(a[6:0]),
         .D(d[12]),
@@ -1364,7 +1364,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h000000000000000000000000000000F0)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_13_13
        (.A(a[6:0]),
         .D(d[13]),
@@ -1375,7 +1375,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h000000000000000000000000000000FC)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_14_14
        (.A(a[6:0]),
         .D(d[14]),
@@ -1386,7 +1386,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000000000100)) 
+    .INIT(128'h00000000000000000000000044444040)) 
     ram_reg_0_127_15_15
        (.A(a[6:0]),
         .D(d[15]),
@@ -1397,7 +1397,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000012DB740A)) 
+    .INIT(128'h000000000000000000001C88C8889040)) 
     ram_reg_0_127_16_16
        (.A(a[6:0]),
         .D(d[16]),
@@ -1408,7 +1408,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h000000000000000000000000124987F0)) 
+    .INIT(128'h00000000000000000001000000002040)) 
     ram_reg_0_127_17_17
        (.A(a[6:0]),
         .D(d[17]),
@@ -1419,7 +1419,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000012499800)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_18_18
        (.A(a[6:0]),
         .D(d[18]),
@@ -1430,7 +1430,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h000000000000000000000000009261FF)) 
+    .INIT(128'h00000000000000000001040044447840)) 
     ram_reg_0_127_19_19
        (.A(a[6:0]),
         .D(d[19]),
@@ -1441,7 +1441,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000000DA41CA)) 
+    .INIT(128'h00000000000000000000900444400921)) 
     ram_reg_0_127_1_1
        (.A(a[6:0]),
         .D(d[1]),
@@ -1452,7 +1452,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000012499E00)) 
+    .INIT(128'h0000000000000000000019DD99998040)) 
     ram_reg_0_127_20_20
        (.A(a[6:0]),
         .D(d[20]),
@@ -1463,7 +1463,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h000000000000000000000000008203F4)) 
+    .INIT(128'h00000000000000000000115115554040)) 
     ram_reg_0_127_21_21
        (.A(a[6:0]),
         .D(d[21]),
@@ -1474,7 +1474,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000000001C08)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_22_22
        (.A(a[6:0]),
         .D(d[22]),
@@ -1485,7 +1485,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000000820000)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_23_23
        (.A(a[6:0]),
         .D(d[23]),
@@ -1496,7 +1496,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000000925FFC)) 
+    .INIT(128'h00000000000000000000104444444040)) 
     ram_reg_0_127_24_24
        (.A(a[6:0]),
         .D(d[24]),
@@ -1507,7 +1507,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000000000000)) 
+    .INIT(128'h00000000000000000000011111110040)) 
     ram_reg_0_127_25_25
        (.A(a[6:0]),
         .D(d[25]),
@@ -1518,7 +1518,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h0000000000000000000000000090A800)) 
+    .INIT(128'h000000000000000000014DD999998040)) 
     ram_reg_0_127_26_26
        (.A(a[6:0]),
         .D(d[26]),
@@ -1529,7 +1529,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h0000000000000000000000000400B200)) 
+    .INIT(128'h00000000000000000003CC8888888041)) 
     ram_reg_0_127_27_27
        (.A(a[6:0]),
         .D(d[27]),
@@ -1540,7 +1540,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000000925C00)) 
+    .INIT(128'h00000000000000000000115511110040)) 
     ram_reg_0_127_28_28
        (.A(a[6:0]),
         .D(d[28]),
@@ -1551,7 +1551,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000032493E03)) 
+    .INIT(128'h00000000000000000001444400003840)) 
     ram_reg_0_127_29_29
        (.A(a[6:0]),
         .D(d[29]),
@@ -1562,7 +1562,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000016001CF0)) 
+    .INIT(128'h0000000000000000000081C585C59220)) 
     ram_reg_0_127_2_2
        (.A(a[6:0]),
         .D(d[2]),
@@ -1573,7 +1573,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000000000000)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_30_30
        (.A(a[6:0]),
         .D(d[30]),
@@ -1584,7 +1584,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h0000000000000000000000000000A000)) 
+    .INIT(128'h000000000000000000014C8888888040)) 
     ram_reg_0_127_31_31
        (.A(a[6:0]),
         .D(d[31]),
@@ -1595,7 +1595,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000004000100)) 
+    .INIT(128'h00000000000000000001CC11C8118049)) 
     ram_reg_0_127_3_3
        (.A(a[6:0]),
         .D(d[3]),
@@ -1606,7 +1606,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000004000000)) 
+    .INIT(128'h00000000000000000002000099990040)) 
     ram_reg_0_127_4_4
        (.A(a[6:0]),
         .D(d[4]),
@@ -1617,7 +1617,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h000000000000000000000000000001FC)) 
+    .INIT(128'h000000000000000000028C8844444040)) 
     ram_reg_0_127_5_5
        (.A(a[6:0]),
         .D(d[5]),
@@ -1628,7 +1628,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000000000000)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_6_6
        (.A(a[6:0]),
         .D(d[6]),
@@ -1639,7 +1639,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000000000000)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_7_7
        (.A(a[6:0]),
         .D(d[7]),
@@ -1650,7 +1650,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h0000000000000000000000000000A000)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_8_8
        (.A(a[6:0]),
         .D(d[8]),
@@ -1661,7 +1661,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000000000000)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_9_9
        (.A(a[6:0]),
         .D(d[9]),
