@@ -44,7 +44,6 @@ module cpu(
     reg sig_ir_w;
     reg [`ALU_OP_BITS-1:0] sig_alu_op;
     
-    wire clk_50mhz;
     reg [`BITS-1:0] pc;
     wire [`BITS-1:0] npc;
     wire pc_we;
@@ -63,30 +62,22 @@ module cpu(
     
     assign pc_we = sig_pc_w | (zero & sig_pc_wcond) | (~zero & sig_pc_wncond);
     
-    always @(posedge clk_50mhz) begin
+    always @(posedge clk) begin
         if (pc_we)
             pc <= npc;
     end
     
-    always @(posedge clk_50mhz) begin
+    always @(posedge clk) begin
         if (sig_ir_w)
             ir <= mem_dout;
     end
     
-    always @(posedge clk_50mhz) begin
+    always @(posedge clk) begin
         alu_out <= alu_res;
         mdr <= mem_dout;
         rda <= rd1;
         rdb <= rd2;
     end
-    
-    /*
-    clk_wiz_0 main_clock (
-        .clk_in1(clk),
-        .clk_out1(clk_50mhz)
-    );
-    */
-    assign clk_50mhz = clk;
 
     wire [`ADDR_BITS-1:0] mem_addr;
     wire [`BITS-1:0] mem_din;
@@ -97,7 +88,7 @@ module cpu(
         .a(mem_addr),
         .d(mem_din),
         .spo(mem_dout),
-        .clk(clk_50mhz),
+        .clk(clk),
         .we(sig_mem_w),
         .dpra(ddu_addr),
         .dpo(ddu_dout)
@@ -119,7 +110,7 @@ module cpu(
     
     regfile #(`BITS, `REG_SIZE, `REG_ADDR) regs (
         .rst(rst),
-        .clk(clk_50mhz),
+        .clk(clk),
         .rAddr0(ra1),
         .rAddr1(ra2),
         .wAddr(wa),
@@ -206,7 +197,7 @@ module cpu(
         (state == SLMem) ? SWb  :
                            SIf  ;
     
-    always @ (posedge clk_50mhz) begin
+    always @ (posedge clk) begin
         state <= next_state;
     end 
     
