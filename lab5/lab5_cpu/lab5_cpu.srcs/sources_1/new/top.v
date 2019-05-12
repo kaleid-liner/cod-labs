@@ -27,6 +27,7 @@ module top(
     input inc,
     input dec,
     input clk,
+    input rst,
     output [15:0] led,
     output [7:0] an,
     output [6:0] seg,
@@ -52,7 +53,8 @@ module top(
         .ddu_addr(addr),
         .ddu_mem(mem_data),
         .ddu_reg(reg_data),
-        .pc_out(pc)
+        .pc_out(pc),
+        .rst(rst)
     );
     
     ddu _ddu (

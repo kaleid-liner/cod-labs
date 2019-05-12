@@ -66,8 +66,11 @@ module cpu(
     assign pc_we = sig_pc_w | (zero & sig_pc_wcond) | (~zero & sig_pc_wncond);
     
     always @(posedge clk) begin
-        if (pc_we)
+        if (rst) begin
+            pc <= 0;
+        end else if (pc_we) begin
             pc <= npc;
+        end
     end
     
     always @(posedge clk) begin
@@ -112,7 +115,7 @@ module cpu(
     reg [`BITS-1:0] rdb;
     
     regfile #(`BITS, `REG_SIZE, `REG_ADDR) regs (
-        .rst(0),
+        .rst(rst),
         .clk(clk),
         .rAddr0(ra1),
         .rAddr1(ra2),
@@ -202,7 +205,11 @@ module cpu(
                          
     
     always @ (posedge clk) begin
-        state <= next_state;
+        if (rst) begin
+            state <= SIdle;
+        end else begin
+            state <= next_state;
+        end
     end 
     
     initial begin
