@@ -5,7 +5,7 @@
 // 
 // Create Date: 2019/05/02 12:05:16
 // Design Name: 
-// Module Name: top
+// Module Name: cpu
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -21,7 +21,7 @@
 
 `include "define.vh"
 
-module top(
+module cpu(
     input clk,
     input rst,
     input [`ADDR_BITS-1:0] ddu_addr,

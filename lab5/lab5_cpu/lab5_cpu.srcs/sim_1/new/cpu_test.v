@@ -30,6 +30,6 @@ module cpu_test(
     
     wire [7:0] addr = 8'h2;
     wire [31:0] dout;
-    top cpu (clk, rst, addr, dout);
+    cpu _cpu (clk, rst, addr, dout);
     
 endmodule
