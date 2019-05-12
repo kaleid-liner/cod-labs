@@ -37,6 +37,7 @@ module alu(
             `ALU_XOR: res = srca ^ srcb;
             `ALU_NOR: res = ~(srca | srcb);
             `ALU_SLT: res = (srca < srcb) | (srca[`BITS-1] & ~srcb[`BITS-1]);
+            default: res = srca;
         endcase
     end
         

@@ -42,6 +42,13 @@ module regfile(
     assign rDout1 = regs[rAddr1];
     
     integer i;
+    
+    initial begin
+        for (i = 0; i < SIZE; i = i + 1) begin
+            regs[i] = 0;
+        end
+    end
+    
     always @(posedge clk) begin
         if (rst) begin
             for (i = 0; i < SIZE; i = i + 1) begin

@@ -28,6 +28,8 @@ module cpu_test(
     initial begin clk = 0; rst = 0; end
     always #10 clk = ~clk;
     
-    top cpu (clk, rst);
+    wire [7:0] addr = 8'h2;
+    wire [31:0] dout;
+    top cpu (clk, rst, addr, dout);
     
 endmodule

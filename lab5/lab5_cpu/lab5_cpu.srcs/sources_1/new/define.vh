@@ -1,6 +1,7 @@
 `define BITS 32
 `define REG_ADDR 5
 `define REG_SIZE 32
+`define ADDR_BITS 8
 
 `define OP_BITS 6
 
