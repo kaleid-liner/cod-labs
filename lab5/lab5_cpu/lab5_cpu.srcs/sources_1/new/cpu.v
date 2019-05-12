@@ -24,8 +24,11 @@
 module cpu(
     input clk,
     input rst,
+    input run,
     input [`ADDR_BITS-1:0] ddu_addr,
-    output [`BITS-1:0] ddu_dout
+    output [`BITS-1:0] ddu_mem,
+    output [`BITS-1:0] ddu_reg,
+    output [`ADDR_BITS-1:0] pc_out
     );
     
     // signal
@@ -91,7 +94,7 @@ module cpu(
         .clk(clk),
         .we(sig_mem_w),
         .dpra(ddu_addr),
-        .dpo(ddu_dout)
+        .dpo(ddu_mem)
     );
     
     assign mem_din = rdb;
@@ -109,15 +112,17 @@ module cpu(
     reg [`BITS-1:0] rdb;
     
     regfile #(`BITS, `REG_SIZE, `REG_ADDR) regs (
-        .rst(rst),
+        .rst(0),
         .clk(clk),
         .rAddr0(ra1),
         .rAddr1(ra2),
+        .rAddr2(ddu_addr),
         .wAddr(wa),
         .wDin(wd),
         .wEn(reg_we),
         .rDout0(rd1),
-        .rDout1(rd2)
+        .rDout1(rd2),
+        .rDout2(ddu_reg)
     );
     
     assign reg_we = sig_reg_w;
@@ -172,7 +177,7 @@ module cpu(
                SRMem = 9,
                SIMem = 10,
                SWb  = 11,
-               SStart = 12;
+               SIdle = 12;
                
     reg [3:0] state;
     wire [3:0] next_state;
@@ -191,18 +196,17 @@ module cpu(
                                               SSMem:
         (state == SREx)  ? SRMem:
         (state == SIEx)  ? SIMem:
-        (state == SJEx)  ? SIf  :
-        (state == SBEx)  ? SIf  :
-        (state == SBNEx) ? SIf  :
         (state == SLMem) ? SWb  :
-                           SIf  ;
+                           run  ? SIf  :
+                                  SIdle;
+                         
     
     always @ (posedge clk) begin
         state <= next_state;
     end 
     
     initial begin
-        state = SStart;
+        state = SIdle;
         pc = 0;
     end
     
@@ -224,5 +228,8 @@ module cpu(
         sig_ir_w,                    
         sig_alu_op
     );
+    
+    // not relevant to cpu
+    assign pc_out = pc[`ADDR_BITS+1:2];
     
 endmodule
