@@ -29,20 +29,20 @@ module cpu(
     );
     
     // signal
-    reg sig_reg_dst;
-    reg sig_reg_w;
-    reg sig_alu_srca;
-    reg [1:0] sig_alu_srcb;
-    reg [1:0] sig_pc_src;
-    reg sig_pc_wcond;
-    reg sig_pc_wncond;
-    reg sig_pc_w;
-    reg sig_IorD;
-    reg sig_mem_r; // perhaps i won't use this
-    reg sig_mem_w;
-    reg sig_mem_reg;
-    reg sig_ir_w;
-    reg [`ALU_OP_BITS-1:0] sig_alu_op;
+    wire sig_reg_dst;
+    wire sig_reg_w;
+    wire sig_alu_srca;
+    wire [1:0] sig_alu_srcb;
+    wire [1:0] sig_pc_src;
+    wire sig_pc_wcond;
+    wire sig_pc_wncond;
+    wire sig_pc_w;
+    wire sig_IorD;
+    wire sig_mem_r; // perhaps i won't use this
+    wire sig_mem_w;
+    wire sig_mem_reg;
+    wire sig_ir_w;
+    wire [`ALU_OP_BITS-1:0] sig_alu_op;
     
     reg [`BITS-1:0] pc;
     wire [`BITS-1:0] npc;
@@ -206,232 +206,23 @@ module cpu(
         pc = 0;
     end
     
-    always @ (next_state) begin
-        case (next_state)
-        SIf: begin 
-            sig_reg_dst = 0;
-            sig_reg_w = 0;
-            sig_alu_srca = 0;
-            sig_alu_srcb = 1;
-            sig_pc_src = 0;
-            sig_pc_wcond = 0;
-            sig_pc_wncond = 0;
-            sig_pc_w = 1;
-            sig_IorD = 0;
-            sig_mem_r = 1;
-            sig_mem_w = 0;
-            sig_mem_reg = 0;
-            sig_ir_w = 1;
-            sig_alu_op = `ALU_ADD;
-        end
-        SId: begin
-            sig_reg_dst = 0;
-            sig_reg_w = 0; 
-            sig_alu_srca = 0;
-            sig_alu_srcb = 3;
-            sig_pc_src = 0;
-            sig_pc_wcond = 0;
-            sig_pc_wncond = 0;
-            sig_pc_w = 0;
-            sig_IorD = 0;
-            sig_mem_r = 0;
-            sig_mem_w = 0;
-            sig_mem_reg = 0;
-            sig_ir_w = 0;
-            sig_alu_op = `ALU_ADD;
-        end
-        SLSEx: begin
-            sig_reg_dst = 0;
-            sig_reg_w = 0;
-            sig_alu_srca = 1;
-            sig_alu_srcb = 2;
-            sig_pc_src = 0;
-            sig_pc_wcond = 0;
-            sig_pc_wncond = 0;
-            sig_pc_w = 0;
-            sig_IorD = 0;
-            sig_mem_r = 0;
-            sig_mem_w = 0;
-            sig_mem_reg = 0;
-            sig_ir_w = 0;
-            sig_alu_op = alu_op;
-        end
-        SREx: begin
-            sig_reg_dst = 0;
-            sig_reg_w = 0;
-            sig_alu_srca = 1;
-            sig_alu_srcb = 0;
-            sig_pc_src = 0;
-            sig_pc_wcond = 0;
-            sig_pc_wncond = 0;
-            sig_pc_w = 0;
-            sig_IorD = 0;
-            sig_mem_r = 0;
-            sig_mem_w = 0;
-            sig_mem_reg = 0;
-            sig_ir_w = 0;    
-            sig_alu_op = alu_op;         
-        end
-        SBEx: begin
-            sig_reg_dst = 0;
-            sig_reg_w = 0;
-            sig_alu_srca = 1;
-            sig_alu_srcb = 0;
-            sig_pc_src = 1;
-            sig_pc_wcond = 1;
-            sig_pc_wncond = 0;
-            sig_pc_w = 0;
-            sig_IorD = 0;
-            sig_mem_r = 0;
-            sig_mem_w = 0;
-            sig_mem_reg = 0;
-            sig_ir_w = 0;     
-            sig_alu_op = alu_op;       
-        end
-        SBNEx: begin
-            sig_reg_dst = 0;
-            sig_reg_w = 0;
-            sig_alu_srca = 1;
-            sig_alu_srcb = 0;
-            sig_pc_src = 1;
-            sig_pc_wcond = 0;
-            sig_pc_wncond = 1;
-            sig_pc_w = 0;
-            sig_IorD = 0;
-            sig_mem_r = 0;
-            sig_mem_w = 0;
-            sig_mem_reg = 0;
-            sig_ir_w = 0;     
-            sig_alu_op = alu_op;       
-        end
-        SJEx: begin
-            sig_reg_dst = 0;
-            sig_reg_w = 0;
-            sig_alu_srca = 1;
-            sig_alu_srcb = 2;
-            sig_pc_src = 2;
-            sig_pc_wcond = 0;
-            sig_pc_wncond = 0;
-            sig_pc_w = 1;
-            sig_IorD = 0;
-            sig_mem_r = 0;
-            sig_mem_w = 0;
-            sig_mem_reg = 0;
-            sig_ir_w = 0;
-            sig_alu_op = alu_op;
-        end
-        SIEx: begin
-            sig_reg_dst = 0;
-            sig_reg_w = 0;
-            sig_alu_srca = 1;
-            sig_alu_srcb = 2;
-            sig_pc_src = 0;
-            sig_pc_wcond = 0;
-            sig_pc_wncond = 0;
-            sig_pc_w = 0;
-            sig_IorD = 0;
-            sig_mem_r = 0;
-            sig_mem_w = 0;
-            sig_mem_reg = 0;
-            sig_ir_w = 0;
-            sig_alu_op = alu_op;        
-        end
-        SLMem: begin
-            sig_reg_dst = 0;
-            sig_reg_w = 0;
-            sig_alu_srca = 1;
-            sig_alu_srcb = 2;
-            sig_pc_src = 0;
-            sig_pc_wcond = 0;
-            sig_pc_wncond = 0;
-            sig_pc_w = 0;
-            sig_IorD = 1;
-            sig_mem_r = 1;
-            sig_mem_w = 0;
-            sig_mem_reg = 0;
-            sig_ir_w = 0;  
-            sig_alu_op = alu_op;      
-        end
-        SSMem: begin 
-            sig_reg_dst = 0;
-            sig_reg_w = 0;
-            sig_alu_srca = 1;
-            sig_alu_srcb = 2;
-            sig_pc_src = 0;
-            sig_pc_wcond = 0;
-            sig_pc_wncond = 0;
-            sig_pc_w = 0;
-            sig_IorD = 1;
-            sig_mem_r = 0;
-            sig_mem_w = 1;
-            sig_mem_reg = 0;
-            sig_ir_w = 0;   
-            sig_alu_op = alu_op;
-        end
-        SRMem: begin
-            sig_reg_dst = 1;
-            sig_reg_w = 1;
-            sig_alu_srca = 1;
-            sig_alu_srcb = 2;
-            sig_pc_src = 0;
-            sig_pc_wcond = 0;
-            sig_pc_wncond = 0;
-            sig_pc_w = 0;
-            sig_IorD = 0;
-            sig_mem_r = 0;
-            sig_mem_w = 0;
-            sig_mem_reg = 0;
-            sig_ir_w = 0;    
-            sig_alu_op = alu_op;        
-        end
-        SIMem: begin
-            sig_reg_dst = 0;
-            sig_reg_w = 1;
-            sig_alu_srca = 1;
-            sig_alu_srcb = 2;
-            sig_pc_src = 0;
-            sig_pc_wcond = 0;
-            sig_pc_wncond = 0;
-            sig_pc_w = 0;
-            sig_IorD = 0;
-            sig_mem_r = 0;
-            sig_mem_w = 0;
-            sig_mem_reg = 0;
-            sig_ir_w = 0;    
-            sig_alu_op = alu_op;        
-        end
-        SWb: begin
-            sig_reg_dst = 0;
-            sig_reg_w = 1;
-            sig_alu_srca = 1;
-            sig_alu_srcb = 2;
-            sig_pc_src = 0;
-            sig_pc_wcond = 0;
-            sig_pc_wncond = 0;
-            sig_pc_w = 0;
-            sig_IorD = 0;
-            sig_mem_r = 0;
-            sig_mem_w = 0;
-            sig_mem_reg = 1;
-            sig_ir_w = 0;
-            sig_alu_op = alu_op;
-        end
-        SStart: begin
-            sig_reg_dst = 0;
-            sig_reg_w = 0;
-            sig_alu_srca = 0;
-            sig_alu_srcb = 0;
-            sig_pc_src = 0;
-            sig_pc_wcond = 0;
-            sig_pc_wncond = 0;
-            sig_pc_w = 0;
-            sig_IorD = 0;
-            sig_mem_r = 0;
-            sig_mem_w = 0;
-            sig_mem_reg = 0;
-            sig_ir_w = 0;
-            sig_alu_op = alu_op;
-        end
-        endcase
-    end 
+    sig_ctrl _sig_ctrl (
+        next_state,
+        alu_op,
+        sig_reg_dst,                 
+        sig_reg_w,                   
+        sig_alu_srca,                
+        sig_alu_srcb,          
+        sig_pc_src,            
+        sig_pc_wcond,                
+        sig_pc_wncond,               
+        sig_pc_w,                    
+        sig_IorD,                    
+        sig_mem_r,                   
+        sig_mem_w,                   
+        sig_mem_reg,                 
+        sig_ir_w,                    
+        sig_alu_op
+    );
+    
 endmodule
