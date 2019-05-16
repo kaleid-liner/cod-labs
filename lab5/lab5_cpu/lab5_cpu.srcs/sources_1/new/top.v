@@ -48,7 +48,7 @@ module top(
     wire [`ADDR_BITS-1:0] pc;
     
     cpu _cpu (
-        .clk(clk),
+        .clk(clk_50mhz),
         .run(run),
         .ddu_addr(addr),
         .ddu_mem(mem_data),

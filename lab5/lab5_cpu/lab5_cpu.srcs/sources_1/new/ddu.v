@@ -74,7 +74,7 @@ module ddu(
     end
     
     always @ (posedge clk_50mhz) begin
-        addr <= addr + inc - dec;
+        addr <= addr + inc_prs - dec_prs;
     end
     
     assign run = cont | step_prs;

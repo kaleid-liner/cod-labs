@@ -25,10 +25,10 @@ module clock_500hz(
     output reg clk_500hz
     );
     
-    reg [19:0] cnt;
+    reg [16:0] cnt;
     
     always @ (posedge clk_50mhz) begin
-        if (cnt>=20'd999999) begin
+        if (cnt>=17'd9999) begin
             clk_500hz <= ~clk_500hz;
             cnt <= 0;
         end else
