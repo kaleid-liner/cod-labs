@@ -37,7 +37,9 @@ module sig_ctrl(
     output reg sig_mem_w,
     output reg sig_mem_reg,
     output reg sig_ir_w,
-    output reg [`ALU_OP_BITS-1:0] sig_alu_op
+    output reg [`ALU_OP_BITS-1:0] sig_alu_op,
+    output reg sig_eint_w,
+    output reg sig_epc_w
     );
 
     localparam SIf  = 0,
@@ -53,7 +55,8 @@ module sig_ctrl(
                SRMem = 9,
                SIMem = 10,
                SWb  = 11,
-               SStart = 12;
+               SIdle = 12,
+               SInt = 13;
     
     
     always @ (next_state) begin
@@ -73,6 +76,8 @@ module sig_ctrl(
             sig_mem_reg = 0;
             sig_ir_w = 1;
             sig_alu_op = `ALU_ADD;
+            sig_eint_w = 0;
+            sig_epc_w = 0;
         end
         SId: begin
             sig_reg_dst = 0;
@@ -89,6 +94,8 @@ module sig_ctrl(
             sig_mem_reg = 0;
             sig_ir_w = 0;
             sig_alu_op = `ALU_ADD;
+            sig_eint_w = 0;
+            sig_epc_w = 0;
         end
         SLSEx: begin
             sig_reg_dst = 0;
@@ -105,6 +112,8 @@ module sig_ctrl(
             sig_mem_reg = 0;
             sig_ir_w = 0;
             sig_alu_op = alu_op;
+            sig_eint_w = 0;
+            sig_epc_w = 0;
         end
         SREx: begin
             sig_reg_dst = 0;
@@ -121,6 +130,8 @@ module sig_ctrl(
             sig_mem_reg = 0;
             sig_ir_w = 0;    
             sig_alu_op = alu_op;         
+            sig_eint_w = 0;
+            sig_epc_w = 0;
         end
         SBEx: begin
             sig_reg_dst = 0;
@@ -137,6 +148,8 @@ module sig_ctrl(
             sig_mem_reg = 0;
             sig_ir_w = 0;     
             sig_alu_op = alu_op;       
+            sig_eint_w = 0;
+            sig_epc_w = 0;
         end
         SBNEx: begin
             sig_reg_dst = 0;
@@ -153,6 +166,8 @@ module sig_ctrl(
             sig_mem_reg = 0;
             sig_ir_w = 0;     
             sig_alu_op = alu_op;       
+            sig_eint_w = 0;
+            sig_epc_w = 0;
         end
         SJEx: begin
             sig_reg_dst = 0;
@@ -169,6 +184,8 @@ module sig_ctrl(
             sig_mem_reg = 0;
             sig_ir_w = 0;
             sig_alu_op = alu_op;
+            sig_eint_w = 0;
+            sig_epc_w = 0;
         end
         SIEx: begin
             sig_reg_dst = 0;
@@ -185,6 +202,8 @@ module sig_ctrl(
             sig_mem_reg = 0;
             sig_ir_w = 0;
             sig_alu_op = alu_op;        
+            sig_eint_w = 0;
+            sig_epc_w = 0;
         end
         SLMem: begin
             sig_reg_dst = 0;
@@ -201,6 +220,8 @@ module sig_ctrl(
             sig_mem_reg = 0;
             sig_ir_w = 0;  
             sig_alu_op = alu_op;      
+            sig_eint_w = 0;
+            sig_epc_w = 0;
         end
         SSMem: begin 
             sig_reg_dst = 0;
@@ -217,6 +238,8 @@ module sig_ctrl(
             sig_mem_reg = 0;
             sig_ir_w = 0;   
             sig_alu_op = alu_op;
+            sig_eint_w = 0;
+            sig_epc_w = 0;
         end
         SRMem: begin
             sig_reg_dst = 1;
@@ -233,6 +256,8 @@ module sig_ctrl(
             sig_mem_reg = 0;
             sig_ir_w = 0;    
             sig_alu_op = alu_op;        
+            sig_eint_w = 0;
+            sig_epc_w = 0;
         end
         SIMem: begin
             sig_reg_dst = 0;
@@ -249,6 +274,8 @@ module sig_ctrl(
             sig_mem_reg = 0;
             sig_ir_w = 0;    
             sig_alu_op = alu_op;        
+            sig_eint_w = 0;
+            sig_epc_w = 0;
         end
         SWb: begin
             sig_reg_dst = 0;
@@ -265,8 +292,10 @@ module sig_ctrl(
             sig_mem_reg = 1;
             sig_ir_w = 0;
             sig_alu_op = alu_op;
+            sig_eint_w = 0;
+            sig_epc_w = 0;
         end
-        SStart: begin
+        SIdle: begin
             sig_reg_dst = 0;
             sig_reg_w = 0;
             sig_alu_srca = 0;
@@ -281,6 +310,26 @@ module sig_ctrl(
             sig_mem_reg = 0;
             sig_ir_w = 0;
             sig_alu_op = alu_op;
+            sig_eint_w = 0;
+            sig_epc_w = 0;
+        end
+        SInt: begin
+            sig_reg_dst = 0;
+            sig_reg_w = 0;
+            sig_alu_srca = 0;
+            sig_alu_srcb = 0;
+            sig_pc_src = 3;
+            sig_pc_wcond = 0;
+            sig_pc_wncond = 0;
+            sig_pc_w = 1;
+            sig_IorD = 0;
+            sig_mem_r = 0;
+            sig_mem_w = 0;
+            sig_mem_reg = 0;
+            sig_ir_w = 0;
+            sig_alu_op = alu_op;
+            sig_eint_w = 1;
+            sig_epc_w = 1;
         end
         endcase
     end 

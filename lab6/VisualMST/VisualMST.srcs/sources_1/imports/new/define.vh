@@ -36,3 +36,6 @@
 `define ALU_XOR 4'b0100
 `define ALU_NOR 4'b0101
 `define ALU_SLT 4'b0110
+
+`define INTR_BITS 8
+`define INT_VEC_BITS 4

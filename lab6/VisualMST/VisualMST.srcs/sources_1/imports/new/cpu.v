@@ -46,6 +46,8 @@ module cpu(
     wire sig_mem_reg;
     wire sig_ir_w;
     wire [`ALU_OP_BITS-1:0] sig_alu_op;
+    wire sig_eint_w;
+    wire sig_epc_w;
     
     reg [`BITS-1:0] pc;
     wire [`BITS-1:0] npc;
@@ -57,7 +59,8 @@ module cpu(
     
     assign npc = (sig_pc_src == 0) ? alu_res :
                  (sig_pc_src == 1) ? alu_out :
-                                     jmp_addr;
+                 (sig_pc_src == 2) ? jmp_addr:
+                                     int_addr;
                                      
     assign opcode = ir[31:26];
                                    
@@ -180,7 +183,8 @@ module cpu(
                SRMem = 9,
                SIMem = 10,
                SWb  = 11,
-               SIdle = 12;
+               SIdle = 12,
+               SInt = 13;
                
     reg [3:0] state;
     wire [3:0] next_state;
@@ -200,7 +204,8 @@ module cpu(
         (state == SREx)  ? SRMem:
         (state == SIEx)  ? SIMem:
         (state == SLMem) ? SWb  :
-                           run  ? SIf  :
+                           run  ? if_int ? SInt :
+                                           SIf  :
                                   SIdle;
                          
     
@@ -233,10 +238,42 @@ module cpu(
         sig_mem_w,                   
         sig_mem_reg,                 
         sig_ir_w,                    
-        sig_alu_op
+        sig_alu_op,
+        sig_eint_w,
+        sig_epc_w
     );
     
     // not relevant to cpu
     assign pc_out = pc[`ADDR_BITS+1:2];
-    
+
+    reg eint;
+    wire [`INTR_BITS-1:0] intr;
+    wire if_int;
+    wire [`INT_VEC_BITS-1:0] int_vec;
+    wire [`BITS-1:0] int_addr;
+
+    reg [`BITS-1:0] epc;
+
+    int_ctrl _int_ctrl (
+        .eint(eint),
+        .intr(intr),
+        .if_int(if_int),
+        .int_vec(int_vec)
+    );
+
+    assign int_addr = 'h10 | int_vec;
+
+    always @ (posedge clk) begin
+        if (sig_eint_w) begin
+            eint <= ~eint;
+        end
+    end
+
+    always @ (posedge clk) begin
+        if (sig_epc_w) begin
+            epc <= pc;
+        end
+    end
+
+
 endmodule
