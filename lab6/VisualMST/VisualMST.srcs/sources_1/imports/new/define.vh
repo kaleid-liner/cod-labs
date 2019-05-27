@@ -16,6 +16,7 @@
 `define SW 6'b101011
 `define J 6'b000010
 `define SLTI 6'b001010
+`define ERET 6'b010000
 
 `define FUNCT_BITS 6
 

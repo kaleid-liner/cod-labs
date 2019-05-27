@@ -36,7 +36,7 @@ module cpu(
     wire sig_reg_w;
     wire sig_alu_srca;
     wire [1:0] sig_alu_srcb;
-    wire [1:0] sig_pc_src;
+    wire [2:0] sig_pc_src;
     wire sig_pc_wcond;
     wire sig_pc_wncond;
     wire sig_pc_w;
@@ -60,7 +60,8 @@ module cpu(
     assign npc = (sig_pc_src == 0) ? alu_res :
                  (sig_pc_src == 1) ? alu_out :
                  (sig_pc_src == 2) ? jmp_addr:
-                                     int_addr;
+                 (sig_pc_src == 3) ? int_addr:
+                                     epc     ;
                                      
     assign opcode = ir[31:26];
                                    
@@ -178,13 +179,14 @@ module cpu(
                SJEx = 5,
                SBEx = 6,
                SBNEx = 13,
+               SEEx = 15,
                SLMem = 7,
                SSMem = 8,
                SRMem = 9,
                SIMem = 10,
                SWb  = 11,
                SIdle = 12,
-               SInt = 13;
+               SInt = 14;
                
     reg [3:0] state;
     wire [3:0] next_state;
@@ -198,6 +200,7 @@ module cpu(
                            (opcode == `LW)  ? SLSEx:
                            (opcode == `SW)  ? SLSEx:
                            (opcode == `J)   ? SJEx :
+                           (opcode == `ERET)? SEEx :
                                               SIEx :
         (state == SLSEx) ? (opcode == `LW)  ? SLMem:
                                               SSMem:
@@ -251,7 +254,8 @@ module cpu(
     wire if_int;
     wire [`INT_VEC_BITS-1:0] int_vec;
     wire [`BITS-1:0] int_addr;
-
+    // not pc of interrupt, but next pc that will be executed
+    // because interrupt can happen after executiong of beq, bne, jmp
     reg [`BITS-1:0] epc;
 
     int_ctrl _int_ctrl (
