@@ -35,7 +35,7 @@ module sig_ctrl(
     output reg sig_IorD,
     output reg sig_mem_r,
     output reg sig_mem_w,
-    output reg sig_reg_src,
+    output reg [1:0] sig_reg_src,
     output reg sig_ir_w,
     output reg [`ALU_OP_BITS-1:0] sig_alu_op,
     output reg sig_eint_w,
@@ -229,7 +229,7 @@ module sig_ctrl(
             sig_IorD = 0;
             sig_mem_r = 0;
             sig_mem_w = 0;
-            sig_reg_src = 0;
+            sig_reg_src = 2;
             sig_ir_w = 0;
             sig_alu_op = alu_op;
             sig_eint_w = 0;
@@ -297,7 +297,7 @@ module sig_ctrl(
             sig_IorD = 0;
             sig_mem_r = 0;
             sig_mem_w = 0;
-            sig_reg_src = 2;
+            sig_reg_src = 0;
             sig_ir_w = 0;    
             sig_alu_op = alu_op;        
             sig_eint_w = 0;

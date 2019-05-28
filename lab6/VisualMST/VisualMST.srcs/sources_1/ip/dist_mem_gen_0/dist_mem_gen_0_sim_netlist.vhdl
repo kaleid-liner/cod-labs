@@ -1,10 +1,10 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
--- Date        : Tue May 28 17:16:31 2019
+-- Date        : Tue May 28 19:09:07 2019
 -- Host        : LAPTOP-VIPBS5F9 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               D:/code/Xilinx/cod-labs/lab6/VisualMST/VisualMST.srcs/sources_1/ip/dist_mem_gen_0/dist_mem_gen_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top dist_mem_gen_0 -prefix
+--               dist_mem_gen_0_ dist_mem_gen_0_sim_netlist.vhdl
 -- Design      : dist_mem_gen_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -24,8 +24,6 @@ entity dist_mem_gen_0_dpram is
     d : in STD_LOGIC_VECTOR ( 31 downto 0 );
     dpra : in STD_LOGIC_VECTOR ( 7 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of dist_mem_gen_0_dpram : entity is "dpram";
 end dist_mem_gen_0_dpram;
 
 architecture STRUCTURE of dist_mem_gen_0_dpram is
@@ -1455,7 +1453,7 @@ begin
     );
 ram_reg_0_127_0_0: unisim.vcomponents.RAM128X1D
     generic map(
-      INIT => X"00000000000000000000111515113B80"
+      INIT => X"00000000000000000000111515113B91"
     )
         port map (
       A(6 downto 0) => a(6 downto 0),
@@ -1607,7 +1605,7 @@ ram_reg_0_127_19_19: unisim.vcomponents.RAM128X1D
     );
 ram_reg_0_127_1_1: unisim.vcomponents.RAM128X1D
     generic map(
-      INIT => X"00000000000000000000900444400920"
+      INIT => X"00000000000000000000900444400921"
     )
         port map (
       A(6 downto 0) => a(6 downto 0),
@@ -1711,7 +1709,7 @@ ram_reg_0_127_26_26: unisim.vcomponents.RAM128X1D
     );
 ram_reg_0_127_27_27: unisim.vcomponents.RAM128X1D
     generic map(
-      INIT => X"00000000000000000003CC8888888040"
+      INIT => X"00000000000000000003CC8888888041"
     )
         port map (
       A(6 downto 0) => a(6 downto 0),
@@ -1750,7 +1748,7 @@ ram_reg_0_127_29_29: unisim.vcomponents.RAM128X1D
     );
 ram_reg_0_127_2_2: unisim.vcomponents.RAM128X1D
     generic map(
-      INIT => X"0000000000000000000081C585C59221"
+      INIT => X"0000000000000000000081C585C59220"
     )
         port map (
       A(6 downto 0) => a(6 downto 0),
@@ -1763,7 +1761,7 @@ ram_reg_0_127_2_2: unisim.vcomponents.RAM128X1D
     );
 ram_reg_0_127_30_30: unisim.vcomponents.RAM128X1D
     generic map(
-      INIT => X"00000000000000000000000000000050"
+      INIT => X"00000000000000000000000000000040"
     )
         port map (
       A(6 downto 0) => a(6 downto 0),
@@ -2638,8 +2636,6 @@ entity dist_mem_gen_0_dist_mem_gen_v8_0_12_synth is
     d : in STD_LOGIC_VECTOR ( 31 downto 0 );
     dpra : in STD_LOGIC_VECTOR ( 7 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of dist_mem_gen_0_dist_mem_gen_v8_0_12_synth : entity is "dist_mem_gen_v8_0_12_synth";
 end dist_mem_gen_0_dist_mem_gen_v8_0_12_synth;
 
 architecture STRUCTURE of dist_mem_gen_0_dist_mem_gen_v8_0_12_synth is
@@ -2743,8 +2739,6 @@ entity dist_mem_gen_0_dist_mem_gen_v8_0_12 is
   attribute C_SYNC_ENABLE of dist_mem_gen_0_dist_mem_gen_v8_0_12 : entity is 1;
   attribute C_WIDTH : integer;
   attribute C_WIDTH of dist_mem_gen_0_dist_mem_gen_v8_0_12 : entity is 32;
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of dist_mem_gen_0_dist_mem_gen_v8_0_12 : entity is "dist_mem_gen_v8_0_12";
 end dist_mem_gen_0_dist_mem_gen_v8_0_12;
 
 architecture STRUCTURE of dist_mem_gen_0_dist_mem_gen_v8_0_12 is

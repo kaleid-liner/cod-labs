@@ -35,11 +35,13 @@ module top(
     wire [`BITS-1:0] din;
     wire [`BITS-1:0] addr;
     wire we;
-    
+    /*
     clk_wiz_0 _clk_wiz_0 (
         .clk_in1(clk_100mhz),
         .clk_out1(clk_50mhz)
     );
+    */
+    assign clk_50mhz = clk_100mhz;
     
     cpu _cpu (
         .clk(clk_50mhz),

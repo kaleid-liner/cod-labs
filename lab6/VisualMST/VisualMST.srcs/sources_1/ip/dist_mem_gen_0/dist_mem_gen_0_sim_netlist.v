@@ -1,10 +1,10 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-// Date        : Tue May 28 17:16:31 2019
+// Date        : Tue May 28 19:09:07 2019
 // Host        : LAPTOP-VIPBS5F9 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               D:/code/Xilinx/cod-labs/lab6/VisualMST/VisualMST.srcs/sources_1/ip/dist_mem_gen_0/dist_mem_gen_0_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top dist_mem_gen_0 -prefix
+//               dist_mem_gen_0_ dist_mem_gen_0_sim_netlist.v
 // Design      : dist_mem_gen_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -102,7 +102,7 @@ endmodule
 (* C_MEM_INIT_FILE = "dist_mem_gen_0.mif" *) (* C_MEM_TYPE = "2" *) (* C_PARSER_TYPE = "1" *) 
 (* C_PIPELINE_STAGES = "0" *) (* C_QCE_JOINED = "0" *) (* C_QUALIFY_WE = "0" *) 
 (* C_READ_MIF = "1" *) (* C_REG_A_D_INPUTS = "0" *) (* C_REG_DPRA_INPUT = "0" *) 
-(* C_SYNC_ENABLE = "1" *) (* C_WIDTH = "32" *) (* ORIG_REF_NAME = "dist_mem_gen_v8_0_12" *) 
+(* C_SYNC_ENABLE = "1" *) (* C_WIDTH = "32" *) 
 module dist_mem_gen_0_dist_mem_gen_v8_0_12
    (a,
     d,
@@ -224,7 +224,6 @@ module dist_mem_gen_0_dist_mem_gen_v8_0_12
         .we(we));
 endmodule
 
-(* ORIG_REF_NAME = "dist_mem_gen_v8_0_12_synth" *) 
 module dist_mem_gen_0_dist_mem_gen_v8_0_12_synth
    (spo,
     dpo,
@@ -259,7 +258,6 @@ module dist_mem_gen_0_dist_mem_gen_v8_0_12_synth
         .we(we));
 endmodule
 
-(* ORIG_REF_NAME = "dpram" *) 
 module dist_mem_gen_0_dpram
    (spo,
     dpo,
@@ -1314,7 +1312,7 @@ module dist_mem_gen_0_dpram
         .R(1'b0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000111515113B80)) 
+    .INIT(128'h00000000000000000000111515113B91)) 
     ram_reg_0_127_0_0
        (.A(a[6:0]),
         .D(d[0]),
@@ -1441,7 +1439,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000900444400920)) 
+    .INIT(128'h00000000000000000000900444400921)) 
     ram_reg_0_127_1_1
        (.A(a[6:0]),
         .D(d[1]),
@@ -1529,7 +1527,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000003CC8888888040)) 
+    .INIT(128'h00000000000000000003CC8888888041)) 
     ram_reg_0_127_27_27
        (.A(a[6:0]),
         .D(d[27]),
@@ -1562,7 +1560,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h0000000000000000000081C585C59221)) 
+    .INIT(128'h0000000000000000000081C585C59220)) 
     ram_reg_0_127_2_2
        (.A(a[6:0]),
         .D(d[2]),
@@ -1573,7 +1571,7 @@ module dist_mem_gen_0_dpram
         .WE(ram_reg_0_127_0_0_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-5 {cell *THIS*}}" *) 
   RAM128X1D #(
-    .INIT(128'h00000000000000000000000000000050)) 
+    .INIT(128'h00000000000000000000000000000040)) 
     ram_reg_0_127_30_30
        (.A(a[6:0]),
         .D(d[30]),
