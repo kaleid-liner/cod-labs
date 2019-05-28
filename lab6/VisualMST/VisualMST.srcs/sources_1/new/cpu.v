@@ -223,6 +223,7 @@ module cpu(
     initial begin
         state = SIdle;
         pc = 0;
+        epc = 1;
     end
     
     sig_ctrl _sig_ctrl (

@@ -44,3 +44,4 @@ module alu(
     assign zero = res == 0;
     
 endmodule
+
