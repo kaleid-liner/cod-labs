@@ -26,6 +26,8 @@ module cpu_test(
     
     reg rst, run, clk;
     
+    always #10 clk = ~clk;
+    
     initial begin
         rst = 0;
         run = 1;
@@ -35,6 +37,7 @@ module cpu_test(
     cpu _cpu (
         .rst(rst),
         .run(run),
-        .clk(clk)
+        .clk(clk),
+        .intr(0)
     );
 endmodule

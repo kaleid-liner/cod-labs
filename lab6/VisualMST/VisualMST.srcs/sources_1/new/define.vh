@@ -27,6 +27,7 @@
 `define XOR_FUNCT 6'b100110
 `define NOR_FUNCT 6'b100111
 `define SLT_FUNCT 6'b101010
+`define SYS_FUNCT 6'b001100
 
 `define ALU_OP_BITS 4
 

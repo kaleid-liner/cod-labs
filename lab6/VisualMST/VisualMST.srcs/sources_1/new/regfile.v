@@ -25,13 +25,14 @@ module regfile(
     input clk,
     input [ADDR-1:0] rAddr0,
     input [ADDR-1:0] rAddr1,
-    input [ADDR-1:0] rAddr2,
     input [ADDR-1:0] wAddr,
     input [BITS-1:0] wDin,
     input wEn,
     output [BITS-1:0] rDout0,
     output [BITS-1:0] rDout1,
-    output [BITS-1:0] rDout2
+    output [BITS-1:0] epc,
+    output [BITS-1:0] cause,
+    output [BITS-1:0] v0
     );
     
     parameter BITS = 4;
@@ -42,7 +43,10 @@ module regfile(
     
     assign rDout0 = regs[rAddr0];
     assign rDout1 = regs[rAddr1];
-    assign rDout2 = regs[rAddr2];
+
+    assign epc = regs[14];
+    assign cause = regs[13];
+    assign v0 = regs[2];
     
     integer i;
     

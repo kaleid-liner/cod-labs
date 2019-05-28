@@ -25,6 +25,8 @@ module cpu(
     input clk,
     input rst,
     input run,
+    // external interrupt
+    input [`INTR_BITS-1:0] intr,
     input [`ADDR_BITS-1:0] ddu_addr,
     output [`BITS-1:0] ddu_mem,
     output [`BITS-1:0] ddu_reg,
@@ -32,7 +34,7 @@ module cpu(
     );
     
     // signal
-    wire sig_reg_dst;
+    wire [1:0] sig_reg_dst;
     wire sig_reg_w;
     wire sig_alu_srca;
     wire [1:0] sig_alu_srcb;
@@ -43,11 +45,11 @@ module cpu(
     wire sig_IorD;
     wire sig_mem_r; // perhaps i won't use this
     wire sig_mem_w;
-    wire sig_mem_reg;
+    wire [1:0] sig_reg_src;
     wire sig_ir_w;
     wire [`ALU_OP_BITS-1:0] sig_alu_op;
     wire sig_eint_w;
-    wire sig_epc_w;
+    wire sig_except_w;
     
     reg [`BITS-1:0] pc;
     wire [`BITS-1:0] npc;
@@ -56,6 +58,9 @@ module cpu(
     reg [`BITS-1:0] ir;
     reg [`BITS-1:0] mdr;
     wire [5:0] opcode;
+    wire [`BITS-1:0] epc;
+    wire [`BITS-1:0] cause;
+    wire [`BITS-1:0] syscall_vec;
     
     assign npc = (sig_pc_src == 0) ? alu_res :
                  (sig_pc_src == 1) ? alu_out :
@@ -123,18 +128,26 @@ module cpu(
         .clk(clk),
         .rAddr0(ra1),
         .rAddr1(ra2),
-        .rAddr2(ddu_addr),
         .wAddr(wa),
         .wDin(wd),
         .wEn(reg_we),
         .rDout0(rd1),
         .rDout1(rd2),
-        .rDout2(ddu_reg)
+        .epc(epc),
+        .cause(cause),
+        .v0(syscall_vec)
     );
     
     assign reg_we = sig_reg_w;
     assign wa = sig_reg_dst ? ir[15:11] : ir[20:16];
-    assign wd = sig_mem_reg ? mdr : alu_out;
+    assign wa = (sig_reg_dst == 0) ? ir[20:16] :
+                (sig_reg_dst == 1) ? ir[15:11] :
+                (sig_reg_dst == 2) ? 14        :
+                                     13        ;
+    assign wd = (sig_reg_src == 0) ? alu_out:
+                (sig_reg_src == 1) ? mdr    :
+                (sig_reg_src == 2) ? pc     :
+                                     8      ;
     assign ra1 = ir[25:21];
     assign ra2 = ir[20:16];
     
@@ -180,21 +193,24 @@ module cpu(
                SBEx = 6,
                SBNEx = 13,
                SEEx = 15,
+               SSysEx = 16,
                SLMem = 7,
                SSMem = 8,
                SRMem = 9,
                SIMem = 10,
+               SSysMem = 17,
                SWb  = 11,
                SIdle = 12,
                SInt = 14;
                
-    reg [3:0] state;
-    wire [3:0] next_state;
+    reg [4:0] state;
+    wire [4:0] next_state;
     
     // just not want to use case
     assign next_state = 
         (state == SIf)   ? SId :
-        (state == SId)   ? (opcode == `R)   ? SREx :
+        (state == SId)   ? (opcode == `R)   ? (ir[5:0] == `SYS_FUNCT) ? SSysEx :
+                                                                      SREx   :
                            (opcode == `BEQ) ? SBEx :
                            (opcode == `BNE) ? SBNEx:
                            (opcode == `LW)  ? SLSEx:
@@ -206,7 +222,9 @@ module cpu(
                                               SSMem:
         (state == SREx)  ? SRMem:
         (state == SIEx)  ? SIMem:
+        (state == SSysEx)? SSysMem:
         (state == SLMem) ? SWb  :
+        (state == SSysMem)?SInt :
                            run  ? if_int ? SInt :
                                            SIf  :
                                   SIdle;
@@ -223,7 +241,7 @@ module cpu(
     initial begin
         state = SIdle;
         pc = 0;
-        epc = 1;
+        eint = 1;
     end
     
     sig_ctrl _sig_ctrl (
@@ -240,24 +258,20 @@ module cpu(
         sig_IorD,                    
         sig_mem_r,                   
         sig_mem_w,                   
-        sig_mem_reg,                 
+        sig_reg_src,                 
         sig_ir_w,                    
         sig_alu_op,
-        sig_eint_w,
-        sig_epc_w
+        sig_eint_w
     );
     
     // not relevant to cpu
     assign pc_out = pc[`ADDR_BITS+1:2];
-
+    
+    // hardware interrupt
     reg eint;
-    wire [`INTR_BITS-1:0] intr;
     wire if_int;
     wire [`INT_VEC_BITS-1:0] int_vec;
     wire [`BITS-1:0] int_addr;
-    // not pc of interrupt, but next pc that will be executed
-    // because interrupt can happen after executiong of beq, bne, jmp
-    reg [`BITS-1:0] epc;
 
     int_ctrl _int_ctrl (
         .eint(eint),
@@ -266,17 +280,13 @@ module cpu(
         .int_vec(int_vec)
     );
 
-    assign int_addr = 'h10 | int_vec;
+    assign int_addr = (cause == 0) ? 'h10 | int_vec :
+                      (cause == 8) ? 'h10 | syscall_vec :
+                                     'h10;
 
     always @ (posedge clk) begin
         if (sig_eint_w) begin
             eint <= ~eint;
-        end
-    end
-
-    always @ (posedge clk) begin
-        if (sig_epc_w) begin
-            epc <= pc;
         end
     end
 
