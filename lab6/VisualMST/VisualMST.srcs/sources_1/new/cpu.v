@@ -28,9 +28,13 @@ module cpu(
     // external interrupt
     input [`INTR_BITS-1:0] intr,
     input [`ADDR_BITS-1:0] ddu_addr,
+    input [`BITS-1:0] mem_dout,
     output [`BITS-1:0] ddu_mem,
     output [`BITS-1:0] ddu_reg,
-    output [`ADDR_BITS-1:0] pc_out
+    output [`ADDR_BITS-1:0] pc_out,
+    output mem_we,
+    output [`BITS-1:0] mem_din,
+    output [`BITS-1:0] mem_addr
     );
     
     // signal
@@ -94,24 +98,9 @@ module cpu(
         rdb <= rd2;
     end
 
-    wire [`ADDR_BITS-1:0] mem_addr;
-    wire [`BITS-1:0] mem_din;
-    wire [`BITS-1:0] mem_dout;
-    wire [`BITS-1:0] tmp_mem_addr;
-        
-    dist_mem_gen_0 memory (
-        .a(mem_addr),
-        .d(mem_din),
-        .spo(mem_dout),
-        .clk(clk),
-        .we(sig_mem_w),
-        .dpra(ddu_addr),
-        .dpo(ddu_mem)
-    );
-    
     assign mem_din = rdb;
-    assign tmp_mem_addr = sig_IorD ? alu_out : pc;
-    assign mem_addr = tmp_mem_addr[`ADDR_BITS+1:2];
+    assign mem_addr = sig_IorD ? alu_out : pc;
+    assign mem_we = sig_mem_w;
 
     wire [`REG_ADDR-1:0] ra1;
     wire [`REG_ADDR-1:0] ra2;
