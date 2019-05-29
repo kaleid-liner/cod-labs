@@ -24,6 +24,7 @@ module bus(
     input [`BITS-1:0] din,
     input [`BITS-1:0] addr,
     input we,
+    input [11:0] rgb,
     input clk,
     input [4:0] key,
     output [`BITS-1:0] dout,
@@ -51,10 +52,14 @@ module bus(
     wire select_key;
     wire key_we;
     wire [`BITS-1:0] key_dout;
+    // rgb: 0x2000
+    wire select_rgb;
+    wire [`BITS-1:0] rgb_dout;
     
     assign dout = ({`BITS{select_mem}} & mem_dout) 
                 | ({`BITS{select_key}} & key_dout)
-                | ({`BITS{select_vga}} & vga_dout);
+                | ({`BITS{select_vga}} & vga_dout)
+                | ({`BITS{select_rgb}} & rgb_dout);
     
     assign select_mem = addr < 'h1000;
     assign mem_we = we & select_mem;
@@ -64,7 +69,10 @@ module bus(
     assign xy_we = we & select_vga & addr[17];
     
     assign select_key = addr == 'h1000 || addr == 'h1001;
-    assign key_we = we & select_key;
+    assign key_we = we & (addr == 'h1001);
+    
+    assign select_rgb = addr == 'h2000;
+    assign rgb_dout = rgb;
     
     dist_mem_gen_0 memory (
         .a(addr[`ADDR_BITS+1:2]),

@@ -82,17 +82,17 @@ module keydriver(
     always @ (posedge clk) begin
         if (!we) begin
             if (!avail) begin
-                avail = up_prs | down_prs | left_prs | right_prs | enter_prs;
-                if (up_prs) value = upval;
-                else if (down_prs) value = downval;
-                else if (left_prs) value = leftval;
-                else if (right_prs) value = rightval;
-                else if (enter_prs) value = enterval;
-                else value = nop;
+                avail <= up_prs | down_prs | left_prs | right_prs | enter_prs;
+                if (up_prs) value <= upval;
+                else if (down_prs) value <= downval;
+                else if (left_prs) value <= leftval;
+                else if (right_prs) value <= rightval;
+                else if (enter_prs) value <= enterval;
+                else value <= nop;
             end
         end else begin
             if (addr == 1) begin
-                avail = din;
+                avail <= din;
             end
         end
     end

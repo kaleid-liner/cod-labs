@@ -23,6 +23,7 @@
 module top(
     input clk_100mhz,
     input [4:0] key,
+    input [11:0] rgb,
     input cont,
     output hs,
     output vs,
@@ -59,6 +60,7 @@ module top(
         .din(din),
         .addr(addr),
         .we(we),
+        .rgb(rgb),
         .clk(clk_50mhz),
         .key(key),
         .dout(dout),
