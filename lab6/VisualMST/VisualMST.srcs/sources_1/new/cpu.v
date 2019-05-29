@@ -40,7 +40,7 @@ module cpu(
     // signal
     wire [1:0] sig_reg_dst;
     wire sig_reg_w;
-    wire sig_alu_srca;
+    wire [1:0] sig_alu_srca;
     wire [1:0] sig_alu_srcb;
     wire [2:0] sig_pc_src;
     wire sig_pc_wcond;
@@ -144,6 +144,7 @@ module cpu(
                      alu_srcb,
                      alu_res;
     wire zero;
+    wire sign;
     wire [`ALU_OP_BITS-1:0] alu_op;
     reg [`BITS-1:0] alu_out;
     
@@ -155,7 +156,8 @@ module cpu(
         .srcb(alu_srcb),
         .op(sig_alu_op),
         .res(alu_res),
-        .zero(zero)
+        .zero(zero),
+        .sign(sign)
     );
     
     alu_ctrl _alu_ctrl (
@@ -166,7 +168,9 @@ module cpu(
     
     assign imm_ext = { {16{ir[15]}}, ir[15:0] };
     assign imm_shf = imm_ext << 2;
-    assign alu_srca = sig_alu_srca ? rda : pc;
+    assign alu_srca = (sig_alu_srca == 0) ? pc :
+                      (sig_alu_srca == 1) ? rda:
+                                            ir[10:6];
     assign alu_srcb = (sig_alu_srcb == 0) ? rdb    :
                       (sig_alu_srcb == 1) ? 4      :
                       (sig_alu_srcb == 2) ? imm_ext:
@@ -183,6 +187,7 @@ module cpu(
                SBNEx = 13,
                SEEx = 15,
                SSysEx = 16,
+               SLLEx = 18,
                SLMem = 7,
                SSMem = 8,
                SRMem = 9,
@@ -199,7 +204,8 @@ module cpu(
     assign next_state = 
         (state == SIf)   ? SId :
         (state == SId)   ? (opcode == `R)   ? (ir[5:0] == `SYS_FUNCT) ? SSysEx :
-                                                                      SREx   :
+                                              (ir[5:0] == `SLL_FUNCT) ? SLLEx  :                       
+                                                                        SREx   :
                            (opcode == `BEQ) ? SBEx :
                            (opcode == `BNE) ? SBNEx:
                            (opcode == `LW)  ? SLSEx:
@@ -212,6 +218,7 @@ module cpu(
         (state == SREx)  ? SRMem:
         (state == SIEx)  ? SIMem:
         (state == SSysEx)? SSysMem:
+        (state == SLLEx) ? SRMem:
         (state == SLMem) ? SWb  :
         (state == SSysMem)?SInt :
                            run  ? if_int ? SInt :

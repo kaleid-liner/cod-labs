@@ -26,7 +26,7 @@ module sig_ctrl(
     input [`ALU_OP_BITS-1:0] alu_op,
     output reg [1:0] sig_reg_dst,
     output reg sig_reg_w,
-    output reg sig_alu_srca,
+    output reg [1:0] sig_alu_srca,
     output reg [1:0] sig_alu_srcb,
     output reg [2:0] sig_pc_src,
     output reg sig_pc_wcond,
@@ -52,6 +52,7 @@ module sig_ctrl(
                SBNEx = 13,
                SEEx = 15,
                SSysEx = 16,
+               SLLEx = 18,
                SLMem = 7,
                SSMem = 8,
                SRMem = 9,
@@ -232,6 +233,23 @@ module sig_ctrl(
             sig_reg_src = 2;
             sig_ir_w = 0;
             sig_alu_op = alu_op;
+            sig_eint_w = 0;
+        end
+        SLLEx: begin
+            sig_reg_dst = 0;
+            sig_reg_w = 0;
+            sig_alu_srca = 2;
+            sig_alu_srcb = 0;
+            sig_pc_src = 0;
+            sig_pc_wcond = 0;
+            sig_pc_wncond = 0;
+            sig_pc_w = 0;
+            sig_IorD = 0;
+            sig_mem_r = 0;
+            sig_mem_w = 0;
+            sig_reg_src = 0;
+            sig_ir_w = 0;    
+            sig_alu_op = alu_op;         
             sig_eint_w = 0;
         end
         SLMem: begin

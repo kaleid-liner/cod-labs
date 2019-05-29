@@ -28,6 +28,7 @@
 `define NOR_FUNCT 6'b100111
 `define SLT_FUNCT 6'b101010
 `define SYS_FUNCT 6'b001100
+`define SLL_FUNCT 6'b000000
 
 `define ALU_OP_BITS 4
 
@@ -38,6 +39,7 @@
 `define ALU_XOR 4'b0100
 `define ALU_NOR 4'b0101
 `define ALU_SLT 4'b0110
+`define ALU_SLL 4'b0111
 
 `define INTR_BITS 8
 `define INT_VEC_BITS 4
