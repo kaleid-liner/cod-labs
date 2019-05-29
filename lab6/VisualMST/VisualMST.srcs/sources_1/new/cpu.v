@@ -144,7 +144,6 @@ module cpu(
                      alu_srcb,
                      alu_res;
     wire zero;
-    wire sign;
     wire [`ALU_OP_BITS-1:0] alu_op;
     reg [`BITS-1:0] alu_out;
     
@@ -156,8 +155,7 @@ module cpu(
         .srcb(alu_srcb),
         .op(sig_alu_op),
         .res(alu_res),
-        .zero(zero),
-        .sign(sign)
+        .zero(zero)
     );
     
     alu_ctrl _alu_ctrl (

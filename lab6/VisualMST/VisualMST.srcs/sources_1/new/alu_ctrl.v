@@ -37,6 +37,7 @@ module alu_ctrl(
                     `NOR_FUNCT: alu_op = `ALU_NOR;
                     `SUB_FUNCT: alu_op = `ALU_SUB;
                     `SLT_FUNCT: alu_op = `ALU_SLT;
+                    `SLL_FUNCT: alu_op = `ALU_SLL;
                     default: alu_op = `ALU_ADD;
                 endcase
             end

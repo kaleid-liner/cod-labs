@@ -1,10 +1,10 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
--- Date        : Tue May 28 19:09:07 2019
+-- Date        : Wed May 29 21:17:29 2019
 -- Host        : LAPTOP-VIPBS5F9 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim -rename_top dist_mem_gen_0 -prefix
---               dist_mem_gen_0_ dist_mem_gen_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim
+--               D:/code/Xilinx/cod-labs/lab6/VisualMST/VisualMST.srcs/sources_1/ip/dist_mem_gen_0/dist_mem_gen_0_sim_netlist.vhdl
 -- Design      : dist_mem_gen_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -24,6 +24,8 @@ entity dist_mem_gen_0_dpram is
     d : in STD_LOGIC_VECTOR ( 31 downto 0 );
     dpra : in STD_LOGIC_VECTOR ( 7 downto 0 )
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of dist_mem_gen_0_dpram : entity is "dpram";
 end dist_mem_gen_0_dpram;
 
 architecture STRUCTURE of dist_mem_gen_0_dpram is
@@ -1453,7 +1455,7 @@ begin
     );
 ram_reg_0_127_0_0: unisim.vcomponents.RAM128X1D
     generic map(
-      INIT => X"00000000000000000000111515113B91"
+      INIT => X"00000000000000000000111515112B91"
     )
         port map (
       A(6 downto 0) => a(6 downto 0),
@@ -1527,7 +1529,7 @@ ram_reg_0_127_13_13: unisim.vcomponents.RAM128X1D
     );
 ram_reg_0_127_14_14: unisim.vcomponents.RAM128X1D
     generic map(
-      INIT => X"00000000000000000000000000000040"
+      INIT => X"00000000000000000000000000001040"
     )
         port map (
       A(6 downto 0) => a(6 downto 0),
@@ -1553,7 +1555,7 @@ ram_reg_0_127_15_15: unisim.vcomponents.RAM128X1D
     );
 ram_reg_0_127_16_16: unisim.vcomponents.RAM128X1D
     generic map(
-      INIT => X"000000000000000000001C88C8889040"
+      INIT => X"000000000000000000001C88C8888040"
     )
         port map (
       A(6 downto 0) => a(6 downto 0),
@@ -1735,7 +1737,7 @@ ram_reg_0_127_28_28: unisim.vcomponents.RAM128X1D
     );
 ram_reg_0_127_29_29: unisim.vcomponents.RAM128X1D
     generic map(
-      INIT => X"00000000000000000001444400003840"
+      INIT => X"00000000000000000001444400002840"
     )
         port map (
       A(6 downto 0) => a(6 downto 0),
@@ -1748,7 +1750,7 @@ ram_reg_0_127_29_29: unisim.vcomponents.RAM128X1D
     );
 ram_reg_0_127_2_2: unisim.vcomponents.RAM128X1D
     generic map(
-      INIT => X"0000000000000000000081C585C59220"
+      INIT => X"0000000000000000000081C585C58220"
     )
         port map (
       A(6 downto 0) => a(6 downto 0),
@@ -1852,7 +1854,7 @@ ram_reg_0_127_7_7: unisim.vcomponents.RAM128X1D
     );
 ram_reg_0_127_8_8: unisim.vcomponents.RAM128X1D
     generic map(
-      INIT => X"00000000000000000000000000000040"
+      INIT => X"00000000000000000000000000001040"
     )
         port map (
       A(6 downto 0) => a(6 downto 0),
@@ -2636,6 +2638,8 @@ entity dist_mem_gen_0_dist_mem_gen_v8_0_12_synth is
     d : in STD_LOGIC_VECTOR ( 31 downto 0 );
     dpra : in STD_LOGIC_VECTOR ( 7 downto 0 )
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of dist_mem_gen_0_dist_mem_gen_v8_0_12_synth : entity is "dist_mem_gen_v8_0_12_synth";
 end dist_mem_gen_0_dist_mem_gen_v8_0_12_synth;
 
 architecture STRUCTURE of dist_mem_gen_0_dist_mem_gen_v8_0_12_synth is
@@ -2739,6 +2743,8 @@ entity dist_mem_gen_0_dist_mem_gen_v8_0_12 is
   attribute C_SYNC_ENABLE of dist_mem_gen_0_dist_mem_gen_v8_0_12 : entity is 1;
   attribute C_WIDTH : integer;
   attribute C_WIDTH of dist_mem_gen_0_dist_mem_gen_v8_0_12 : entity is 32;
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of dist_mem_gen_0_dist_mem_gen_v8_0_12 : entity is "dist_mem_gen_v8_0_12";
 end dist_mem_gen_0_dist_mem_gen_v8_0_12;
 
 architecture STRUCTURE of dist_mem_gen_0_dist_mem_gen_v8_0_12 is
