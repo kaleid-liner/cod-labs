@@ -1,7 +1,9 @@
 .text
 	j _start
 	
-	# syscall 0
+	j _syscall_0 # IVT: syscall 0
+	
+	_syscall_0:
 	# key data
 	_key_poll:
 	lw $v0, 0x1001($zero)
@@ -29,7 +31,7 @@ _start:
 	addi $s5, $zero, 5 # enter
 	
 	loop:
-	addi $v0, $zero, 0
+	addi $v0, $zero, 1
 	syscall
 	bne $v0, $s1, key_down
 	lw $a0, ($t2)

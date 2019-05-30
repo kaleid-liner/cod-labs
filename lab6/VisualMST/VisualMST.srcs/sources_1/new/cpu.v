@@ -128,7 +128,6 @@ module cpu(
     );
     
     assign reg_we = sig_reg_w;
-    assign wa = sig_reg_dst ? ir[15:11] : ir[20:16];
     assign wa = (sig_reg_dst == 0) ? ir[20:16] :
                 (sig_reg_dst == 1) ? ir[15:11] :
                 (sig_reg_dst == 2) ? 14        :
@@ -274,9 +273,9 @@ module cpu(
         .int_vec(int_vec)
     );
 
-    assign int_addr = (cause == 0) ? 'h10 | int_vec :
-                      (cause == 8) ? 'h10 | syscall_vec :
-                                     'h10;
+    assign int_addr = (cause == 0) ? {int_vec, 2'b00} :
+                      (cause == 8) ? {syscall_vec, 2'b00} :
+                                     0;
 
     always @ (posedge clk) begin
         if (sig_eint_w) begin
