@@ -38,7 +38,7 @@ module bus(
     wire select_mem;
     wire mem_we;
     wire [`BITS-1:0] mem_dout;
-    // vga: 0x10000 ~ 0x1FFFF
+    // vga: 0x10000 ~ 0x13FFF
     // x: 0x20000
     // y: 0x20001
     // each element 12 bits
@@ -64,7 +64,8 @@ module bus(
     assign select_mem = addr < 'h1000;
     assign mem_we = we & select_mem;
     
-    assign select_vga = addr >= 'h10000 && addr < 'h20002;
+    assign select_vga = (addr >= 'h10000 && addr < 'h14000) 
+                     || (addr == 'h20000) || (addr == 'h20001);
     assign vram_we = we & select_vga & addr[16];
     assign xy_we = we & select_vga & addr[17];
     

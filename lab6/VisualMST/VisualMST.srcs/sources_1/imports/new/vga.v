@@ -1,89 +1,67 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2019/04/16 12:00:56
-// Design Name: 
-// Module Name: vga
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module vga(
-    input clk_50mhz,
+    input [6:0] x,
+    input [6:0] y,
     input [11:0] vdata,
-    input [7:0] x,
-    input [7:0] y,
-    output [11:0] vrgb,
-    output [15:0] vaddr,
+    input clk_50mhz,
+    output [13:0] vaddr,
+    output reg [11:0] vrgb,
     output hs,
     output vs
     );
+
+    localparam HL = 11'd1040;
+    localparam VL = 11'd666;
+    localparam HSPW = 11'd120;
+    localparam VSPW = 11'd6;
     
-    localparam BORDER_TOP = 172,
-               BORDER_BOTTOM = 427,
-               BORDER_LEFT = 272,
-               BORDER_RIGHT = 527;
-               
-    localparam WIDTH = 800,
-               HEIGHT = 600;
-               
-    localparam HSPW = 120,
-               HBP = 64,
-               HFP = 56,
-               VSPW = 6,
-               VBP = 23,
-               VFP = 37;
-               
-    localparam HTICK = 1040,
-               VTICK = 666;
-               
-    reg [10:0] hc;
-    reg [9:0] vc;
-            
-    always @(posedge clk_50mhz) begin
-        if (hc == HTICK - 1) begin
-            hc <= 0;
-            if (vc == VTICK - 1) begin
-                vc <= 0;
-            end else begin
-                vc <= vc + 1;
-            end
-        end else begin
-            hc <= hc + 1;
-        end
+    localparam UP = 11'd265;
+    localparam DOWN = 11'd393;
+    localparam LEFT = 11'd520;
+    localparam RIGHT = 11'd648;
+    
+    reg [10:0] hcnt,vcnt;
+    wire [7:0] px,py;
+    
+    assign hs= (hcnt < HSPW) ? 0 : 1;
+    assign vs = (vcnt < VSPW ) ? 0 : 1;
+    assign px = hcnt - LEFT;
+    assign py = vcnt - UP;
+        
+    assign vaddr = px + py * 128;
+    
+    
+    always @ (posedge clk_50mhz)
+    begin
+    	if ( hcnt == (HL - 1))
+    		hcnt <= 0;
+    	else
+    		hcnt <= hcnt + 1;
     end
     
-    localparam HSBEG = WIDTH + HFP,
-               HSEND = WIDTH + HFP + HSPW,
-               VSBEG = HEIGHT + VFP,
-               VSEND = HEIGHT + VFP + VSPW;
+    always @ (posedge clk_50mhz)
+    begin
+    	if (hcnt == (HL - 1)) 
+    	begin
+    		if (vcnt == (VL - 1))
+    			vcnt <= 0;
+    		else
+    			vcnt <= vcnt + 1;
+    	end
+    end
     
-    assign hs = ~((hc >= HSBEG) && (hc < HSEND));
-    assign vs = ~((vc >= VSBEG) && (vc < VSEND));
-                      
-    wire [15:0] hcbeg = hc - BORDER_LEFT;
-    wire [15:0] vcbeg = vc - BORDER_TOP;
-    assign vaddr = hcbeg + vcbeg * 256;
+    always @(posedge clk_50mhz)
+    begin
+        if(vcnt >= UP && vcnt < DOWN && hcnt >=LEFT && hcnt < RIGHT)
+        begin
+            if( (px<5+x && x<5+px && y==py) ||( py<5+y && y<5+py && x==px)) vrgb <= 12'h000;
+            else vrgb <= vdata;
+        end
+        else vrgb <= 12'h000;
+        
+    end
     
-    assign vrgb = ((hcbeg == x) && (vcbeg == y))
-               || ((hcbeg == x - 1) && (vcbeg == y))
-               || ((hcbeg == x + 1) && (vcbeg == y))
-               || ((hcbeg == x) && (vcbeg == y - 1))
-               || ((hcbeg == x) && (vcbeg == y + 1))
-               || (hc < BORDER_LEFT) || (hc > BORDER_RIGHT)
-               || (vc < BORDER_TOP) || (vc > BORDER_BOTTOM)
-               ? 0 : vdata;
-    
+
 endmodule
+

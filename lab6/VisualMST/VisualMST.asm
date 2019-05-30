@@ -9,6 +9,7 @@
 	lw $v0, 0x1001($zero)
 	beq $v0, $zero, _key_poll
 	lw $v0, 0x1000($zero)
+	sw $zero, 0x1001($zero)
 	eret
 	
 _start:
@@ -20,9 +21,11 @@ _start:
 	# y
 	addi $t2, $t1, 1
 	# rgb
-	addi $s0, $zero, 128
+	addi $s0, $zero, 64
 	sw $s0, ($t1)
 	sw $s0, ($t2)
+	
+	loop:
 	
 	addi $s1, $zero, 1 # up
 	addi $s2, $zero, 2 # down
@@ -30,7 +33,6 @@ _start:
 	addi $s4, $zero, 4 # right
 	addi $s5, $zero, 5 # enter
 	
-	loop:
 	addi $v0, $zero, 1
 	syscall
 	bne $v0, $s1, key_down
@@ -73,12 +75,12 @@ _start:
 	addi $s0, $zero, 0
 	
 	right_start:
-	slti $k0, $a0, 253
+	slti $k0, $a0, 125
 	beq $k0, $zero, edge_right
 	addi $s1, $a0, 3
 	j up_start
 	edge_right:
-	addi $s1, $zero, 255
+	addi $s1, $zero, 127
 	
 	up_start:
 	slti $k0, $a1, 3
@@ -89,12 +91,12 @@ _start:
 	addi $s2, $zero, 0
 	
 	down_start:
-	slti $k0, $a1, 253
+	slti $k0, $a1, 125
 	beq $k0, $zero, edge_down
 	addi $s3, $a1, 3
 	j draw_start
 	edge_down:
-	addi $s3, $zero, 255
+	addi $s3, $zero, 127
 	
 	draw_start:
 	addi $s1, $s1, 1
@@ -103,19 +105,19 @@ _start:
 	addi $t8, $s0, 0
 	outer_loop:
 	addi $t9, $s2, 0
+	lw $a0, 0x2000($zero)
 	
 	inner_loop:
-		sll $a1, $t9, 8
+		sll $a1, $t9, 7
 		add $a1, $a1, $t8
 		add $a1, $a1, $t0
-		lw $a0, 0x2000($zero)
 		sw $a0, ($a1)
 		
 		addi $t9, $t9, 1
 		bne $t9, $s3, inner_loop
 	
 	addi $t8, $t8, 1
-	bne $t8, $s2, outer_loop
+	bne $t8, $s1, outer_loop
 	
 	key_end:
 	j loop

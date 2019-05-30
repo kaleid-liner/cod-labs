@@ -26,19 +26,25 @@ module top_test(
     reg clk;
     reg [4:0] key;
     reg cont;
+    reg [11:0] rgb;
     
     initial begin
         clk = 0;
         cont = 1;
         key = 0;
+        rgb = 0;
+        #100
+        key = 5'b10000;
     end
     
     always #10 clk = ~clk;
     
+    
     top _top (
         .clk_100mhz(clk),
         .key(key),
-        .cont(cont)
+        .cont(cont),
+        .rgb(rgb)
     );
     
 endmodule

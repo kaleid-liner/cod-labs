@@ -21,7 +21,7 @@
 
 
 module vgadriver(
-    input [15:0] addr,
+    input [13:0] addr,
     input [11:0] din,
     input vram_we,
     input xy_we,
@@ -32,11 +32,11 @@ module vgadriver(
     output [`BITS-1:0] dout
     );
     
-    wire [15:0] vaddr;
+    wire [13:0] vaddr;
     wire [11:0] vdata;
     
-    reg [7:0] x;
-    reg [7:0] y;
+    reg [6:0] x;
+    reg [6:0] y;
     
     dist_mem_gen_1 vram (
         .dpra(vaddr),
@@ -59,5 +59,13 @@ module vgadriver(
     );
     
     assign dout = addr[0] ? y : x;
+    
+    always @ (posedge clk) begin
+        if (xy_we) begin
+            if (addr[0])
+                y <= din;
+            else x <= din;
+        end
+    end
     
 endmodule
