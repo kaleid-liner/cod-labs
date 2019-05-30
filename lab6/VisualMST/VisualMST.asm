@@ -25,6 +25,7 @@ _start:
 	sw $s0, ($t1)
 	sw $s0, ($t2)
 	
+	addi $s6, $zero, 0
 	loop:
 	
 	addi $s1, $zero, 1 # up
@@ -64,61 +65,61 @@ _start:
 	
 	key_enter:
 	bne $v0, $s5, key_end
+	lw $a2, 0x2000($zero)
 	lw $a0, ($t1)
 	lw $a1, ($t2)
 	
-	slti $k0, $a0, 3
-	bne $k0, $zero, edge_left
-	addi $s0, $a0, -3
-	j right_start
-	edge_left:
-	addi $s0, $zero, 0
+	# s6: flag
+	# gp: last_x
+	# sp: last_y
 	
-	right_start:
-	slti $k0, $a0, 125
-	beq $k0, $zero, edge_right
-	addi $s1, $a0, 3
-	j up_start
-	edge_right:
-	addi $s1, $zero, 127
+	bne $s6, $zero, draw
+	addi $s6, $zero, 1
+	addi $gp, $a0, 0
+	addi $sp, $a1, 0
 	
-	up_start:
-	slti $k0, $a1, 3
-	bne $k0, $zero, edge_up
-	addi $s2, $a1, -3
-	j down_start
-	edge_up:
-	addi $s2, $zero, 0
+	sll $k0, $a1, 7
+	add $k0, $k0, $a0
+	add $k0, $k0, $t0
+	sw $a2, ($k0)
+	j key_end
 	
-	down_start:
-	slti $k0, $a1, 125
-	beq $k0, $zero, edge_down
-	addi $s3, $a1, 3
-	j draw_start
-	edge_down:
-	addi $s3, $zero, 127
+	draw:
+	addi $s6, $zero, 0
 	
-	draw_start:
-	addi $s1, $s1, 1
-	addi $s3, $s3, 1
+	slt $k0, $a0, $gp
+	bne $k0, $zero, no_x_swap
+	addi $k0, $a0, 0
+	addi $a0, $gp, 0
+	addi $gp, $k0, 0
+	no_x_swap:
+	slt, $k0, $a1, $sp
+	bne $k0, $zero, no_y_swap
+	addi $k0, $a1, 0
+	addi $a1, $sp, 0
+	addi $sp, $k0, 0
+	no_y_swap:
 	
-	addi $t8, $s0, 0
-	outer_loop:
-	addi $t9, $s2, 0
-	lw $a0, 0x2000($zero)
-	
-	inner_loop:
-		sll $a1, $t9, 7
-		add $a1, $a1, $t8
-		add $a1, $a1, $t0
-		sw $a0, ($a1)
+	addi $gp, $gp, 1
+	addi $sp, $sp, 1
+	# a0 -> gp
+	# a1 -> sp
+	addi $k0, $a0, 0
+	draw_outer_loop:
+	addi $k1, $a1, 0
 		
-		addi $t9, $t9, 1
-		bne $t9, $s3, inner_loop
+	draw_inner_loop:
 	
-	addi $t8, $t8, 1
-	bne $t8, $s1, outer_loop
+		sll $s7, $k1, 7
+		add $s7, $s7, $k0
+		add $s7, $s7, $t0
+		sw $a2, ($s7)
+		
+		addi $k1, $k1, 1
+		bne $k1, $sp, draw_inner_loop
 	
+	addi $k0, $k0, 1
+	bne $k0, $gp, draw_outer_loop
 	key_end:
 	j loop
 	
